@@ -1,5 +1,10 @@
 $Id$
 
+Added dvt and rvt..  an interactive form of dsh with xterms.
+
+Fixed a bug in jsd and dsh where it would lock up running ssh waiting for
+input.
+
 Add a jsd dir, and move jsd.c from dsh to the jsd dir.  Add nearly complete
 jsh program, and jcommon.[ch].
 
