@@ -1,4 +1,4 @@
-#!@@@AWK@@@ -f 
+#!@AWK@ -f 
 # $Id$
 # dshbak  *must have nawk or compatible*
 BEGIN { FS=":" }
