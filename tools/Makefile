@@ -26,4 +26,4 @@ install: ${PROG} ${SCRIPTS}
 	${INSTALL} -c -o bin -g bin -m 0444 dshbak.1 ${PREFIX}/man/man1
 
 clean:
-	rm -f ${PROG} ${SCRIPTS} *.o dshbak.sh ../common/*.o
+	rm -f ${PROG} ${SCRIPTS} *.o *.core core *~ dshbak.sh ../common/*.o
