@@ -35,6 +35,7 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <string.h>
+#include <strings.h>
 #include <syslog.h>
 #include <varargs.h>
 #include "../common/sockcommon.h"
@@ -86,12 +87,12 @@ int main(argc, argv)
 			break;
 	}
 
-	if (barrier_port == 0)
+	if (barrier_port == 0) {
 		if (getenv("BARRIER_PORT") != NULL)
 			barrier_port = atoi(getenv("BARRIER_PORT"));
 		else
 			barrier_port = BARRIER_SOCK;
-
+	}
 	return(sleeper());
 }
 
