@@ -1,3 +1,4 @@
+# $Id$
 # Makefiles and big fun!
 
 CC= ../dsh/seq -i
