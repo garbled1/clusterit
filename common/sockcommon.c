@@ -47,7 +47,8 @@ __RCSID("$Id$");
 #endif
 
 
-int make_socket(port)
+int
+make_socket(port)
 	int port;
 {
 	int sock;
@@ -68,9 +69,10 @@ int make_socket(port)
 	return(sock);
 }
 
-int write_to_client(filedes, buf)
+int
+write_to_client(filedes, buf)
 	int filedes;
-	char *buf;
+	const char *buf;
 {
 	int nbytes;
 
@@ -81,7 +83,8 @@ int write_to_client(filedes, buf)
 		return(EXIT_SUCCESS);
 }
 
-int read_from_client(filedes, j)
+int
+read_from_client(filedes, j)
 	int filedes;
 	char **j;
 {

@@ -40,14 +40,15 @@
 #include <unistd.h>
 #include <string.h>
 #include <netinet/in.h>
+#include <sys/param.h>
 #include <sys/socket.h>
 #include <sys/mbuf.h>
 #include <net/if.h>
 #include <net/if_dl.h>
 #include <netinet/if_ether.h>
 #include <arpa/inet.h>
-#include <sys/time.h>
 #include <sys/types.h>
+#include <sys/time.h>
 #include <sys/resource.h>
 #include <sys/uio.h>
 
@@ -61,6 +62,6 @@
 #define BARRIER_SOCK	1933	/* default socket for barrier */
 
 int make_socket __P((int));
-int write_to_client __P((int, char *));
+int write_to_client __P((int, const char *));
 int read_from_client __P((int, char **));
 extern void log_bailout __P((int));
