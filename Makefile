@@ -31,3 +31,13 @@ catmans:
 			nroff -man $$i >../catman/`/usr/bin/basename $$i .1`.0 ; \
 		done );\
 	done
+
+htmlmans:
+	-@mkdir html/man
+	for dir in ${SUBDIR} ; do \
+		(cd $$dir ; \
+		for i in `ls *.1` ; do \
+			groff -mdoc2html -dformat=HTML -P-b -P-u -P-o -Tascii \
+			-ww $$i >../html/man/`/usr/bin/basename $$i .1`.html ; \
+		done );\
+	done
