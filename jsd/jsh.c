@@ -144,23 +144,26 @@ main(argc, argv)
 	argc -= optind;
 	argv += optind;
 
-	if (!iportnum)
+	if (!iportnum) {
 		if (getenv("JSD_IPORT"))
 			iportnum = atoi(getenv("JSD_IPORT"));
 		else
 			iportnum = JSDIPORT;
+	}
 
-	if (!oportnum)
+	if (!oportnum) {
 		if (getenv("JSD_OPORT"))
 			oportnum = atoi(getenv("JSD_OPORT"));
 		else
 			oportnum = JSDOPORT;
+	}
 
-	if (jsd_host == NULL)
+	if (jsd_host == NULL) {
 		if (getenv("JSD_HOST"))
 			jsd_host = strdup(getenv("JSD_HOST"));
 		else
 			jsd_host = "localhost";
+	}
 
 	do_command(argv, allflag, username);
 	exit(EXIT_SUCCESS);
