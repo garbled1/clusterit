@@ -48,62 +48,57 @@ __RCSID("$Id$");
 
 
 int
-make_socket(port)
-	int port;
+make_socket(int port)
 {
-	int sock;
-	struct sockaddr_in name;
+    int sock;
+    struct sockaddr_in name;
 
-	/* create socket */
-	sock = socket(PF_INET, SOCK_STREAM, 0);
-	if (sock < 0)
-		log_bailout(__LINE__);
+    /* create socket */
+    sock = socket(PF_INET, SOCK_STREAM, 0);
+    if (sock < 0)
+	log_bailout();
 
-	name.sin_family = AF_INET;
-	name.sin_port = htons(port);
-	name.sin_addr.s_addr = htonl(INADDR_ANY);
+    name.sin_family = AF_INET;
+    name.sin_port = htons(port);
+    name.sin_addr.s_addr = htonl(INADDR_ANY);
 
-	if (bind(sock, (struct sockaddr *) &name, sizeof(name)) != 0)
-		log_bailout(__LINE__);
+    if (bind(sock, (struct sockaddr *) &name, sizeof(name)) != 0)
+	log_bailout();
 
-	return(sock);
+    return(sock);
 }
 
 int
-write_to_client(filedes, buf)
-	int filedes;
-	const char *buf;
+write_to_client(int filedes, const char *buf)
 {
-	int nbytes;
+    int nbytes;
 
-	nbytes = write(filedes, buf, strlen(buf));
-	if (nbytes < 0)
-		return(EXIT_FAILURE);
-	else
-		return(EXIT_SUCCESS);
+    nbytes = write(filedes, buf, strlen(buf));
+    if (nbytes < 0)
+	return(EXIT_FAILURE);
+    else
+	return(EXIT_SUCCESS);
 }
 
 int
-read_from_client(filedes, j)
-	int filedes;
-	char **j;
+read_from_client(int filedes, char **j)
 {
-	int nbytes;
-	char *buffer;
+    int nbytes;
+    char *buffer;
 
-	buffer = (char *)malloc( MAXMSG * sizeof(char));
+    buffer = (char *)malloc( MAXMSG * sizeof(char));
 
-	nbytes = read(filedes, buffer, MAXMSG);
-	if (nbytes < 0)
-		log_bailout(__LINE__);
-	else if (nbytes == 0)
-		/* End-of-file. */
-		return(-1);
-	else { /* Data read. */
-		/* place data from the socket into the buffer we were passed */
-		*j = strdup(buffer);
-		return(nbytes);
-	}
-	/*NOTREACHED*/
-	return(0);
+    nbytes = read(filedes, buffer, MAXMSG);
+    if (nbytes < 0)
+	log_bailout();
+    else if (nbytes == 0)
+	/* End-of-file. */
+	return(-1);
+    else { /* Data read. */
+	/* place data from the socket into the buffer we were passed */
+	*j = strdup(buffer);
+	return(nbytes);
+    }
+    /*NOTREACHED*/
+    return(0);
 }

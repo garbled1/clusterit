@@ -33,6 +33,8 @@
 
 /* Headers for sockcommon.c, used by jsd, jsh, barrier. */
 
+#include "config.h"
+
 #include <stdlib.h>
 #include <errno.h>
 #include <fcntl.h>
@@ -40,32 +42,34 @@
 #include <unistd.h>
 #include <string.h>
 #include <netinet/in.h>
+#ifdef HAVE_SYS_PARAM_H
 #include <sys/param.h>
+#endif
 #include <sys/socket.h>
-#if !defined(__sun__) && !defined(__linux__)
+#ifdef HAVE_SYS_MBUF_H
 #include <sys/mbuf.h>
 #endif
 #include <net/if.h>
-#if !defined(__linux__)
+#ifdef HAVE_NET_IF_DL_H
 #include <net/if_dl.h>
 #endif
+#ifdef HAVE_NETINET_IF_ETHER_H
 #include <netinet/if_ether.h>
+#endif
 #include <arpa/inet.h>
 #include <sys/types.h>
 #include <sys/time.h>
 #include <sys/resource.h>
 #include <sys/uio.h>
 
-#ifndef __P
-#define __P(protos) protos
-#endif
-
-#define MAXMSG			512
-#define JSDIPORT		2001
-#define JSDOPORT		2002
+#define MAXMSG		512
+#define JSDIPORT	2001
+#define JSDOPORT	2002
 #define BARRIER_SOCK	1933	/* default socket for barrier */
 
-int make_socket __P((int));
-int write_to_client __P((int, const char *));
-int read_from_client __P((int, char **));
-extern void log_bailout __P((int));
+int make_socket(int port);
+int write_to_client(int filedes, const char *buf);
+int read_from_client(int filedes, char **j);
+extern void _log_bailout(int line, char *file);
+
+#define log_bailout() _log_bailout(__LINE__, __FILE__)
