@@ -163,7 +163,8 @@ int sleeper(void)
 	struct sockaddr_in clientname;
 	char *key, *buf;
 	char *tokens[MAX_TOKENS];
-	int i, k, l, m, found, size, sock;
+	int i, k, l, m, found, sock;
+	size_t size;
 	int sizes[MAX_TOKENS];
 	int connections[MAX_TOKENS];
 	int sockets[MAX_TOKENS][MAX_CLUSTER];
