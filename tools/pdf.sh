@@ -22,7 +22,7 @@ do
 		-x)
 			xarg=$2; shift; shift;;
 		-m)
-			marg="$2%"; shift; shift;;
+			marg="$2"; shift; shift;;
 		--)
 			shift; break;;
 	esac
@@ -42,8 +42,9 @@ dsh $dshargs 'sh -c "if [ `uname` = "AIX" ]; then df -kI '$flag $*'; elif [ `una
 )| grep -v Filesystem | awk '{print $1 " " $3 " " $4 " " $5 " " $6 " " $7 " " $8}' |(
 echo 'Node      Filesystem            1K-Blks     Used    Avail  Cap Mounted On'
 while read node fs blocks used avail capacity mount; do \
-	if [ $capacity \> $marg -a $marg ]; then \
-		printf "%-8s: %-19.19s %9d%9d%9d %4.4s %-19.19s\n" $node $fs $blocks $used $avail $capacity $mount; \
+	capacity=`echo "$capacity" | sed -e 's/\%//'`
+	if [ "$capacity" -gt "$marg" -a "$marg" ]; then \
+		printf "%-8s: %-19.19s %9d%9d%9d %3.3s%% %-17.17s\n" $node $fs $blocks $used $avail $capacity $mount; \
 	fi \
 done
 )
