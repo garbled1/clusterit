@@ -121,7 +121,7 @@ int main(argc, argv)
 	code = make_barrier(key,nodes);
 	if (code == 0) {
 		if (!quietflag)
-			(void)printf("Barrier met, continuing: %s\n");
+			(void)printf("Barrier met, continuing: %s\n", key);
 		return(EXIT_SUCCESS);
 	} else
 		if (!quietflag)
@@ -162,7 +162,7 @@ int make_barrier(key, nodes)
 		exit (EXIT_FAILURE);
 	}
 	if (!quietflag)
-		(void)printf("Barrier syncing with token: %s\n");
+		(void)printf("Barrier syncing with token: %s\n", key);
 	write_to_server(sock, message);
 	return(read(sock, &p, 1));
 }
