@@ -20,6 +20,10 @@ ${PROG}: ${SRCS:.c=.o}
 
 scripts: ${SCRIPTS}
 
+dshbak.sh: dshbak.src
+	sed -e 's|@@@AWK@@@|/usr/bin/awk|' < $> > $@
+#	sed -e 's|@@@AWK@@@|/usr/xpg4/bin/awk|' < $> > $@
+
 install: ${PROG} ${SCRIPTS}
 	/usr/bin/install -c -s -o bin -g bin -m 0755 pcp ${PREFIX}/bin
 	/usr/bin/install -c -o bin -g bin -m 0755 pdf ${PREFIX}/bin
@@ -31,4 +35,4 @@ install: ${PROG} ${SCRIPTS}
 	/usr/bin/install -c -o bin -g bin -m 0444 dshbak.1 ${PREFIX}/man/man1
 
 clean:
-	rm -f ${PROG} ${SCRIPTS} *.o
+	rm -f ${PROG} ${SCRIPTS} *.o dshbak.sh
