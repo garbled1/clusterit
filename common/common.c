@@ -46,6 +46,7 @@ __RCSID("$Id$");
 #endif
 
 
+#ifdef CLUSTERS
 /*
  * This routine just rips open the various arrays and prints out information
  * about what the command would have done, and the topology of your cluster.
@@ -261,45 +262,6 @@ parse_cluster(exclude)
 	fclose(fd);
 	return(g);
 }
-/* return a string, followed by n - strlen spaces */
-
-char *
-alignstring(string, n)
-	char *string;
-	size_t n;
-{
-	size_t i;
-	char *newstring;
-
-	newstring = strdup(string);
-	for (i=1; i <= n - strlen(string); i++)
-		newstring = strcat(newstring, " ");
-
-	return(newstring);
-}
-
-
-/* 
- * Simple error handling routine, needs severe work.
- * Its almost totally useless.
- */
-
-/*ARGSUSED*/
-void
-bailout(line) 
-	int line;
-{
-	extern int errno;
-	
-	if (debug)
-		(void)fprintf(stderr, "%s: Failed on line %d: %s %d\n",
-			progname, line,	strerror(errno), errno);
-	else
-		(void)fprintf(stderr, "%s: Internal error, aborting: %s\n",
-			progname, strerror(errno));
-
-	_exit(EXIT_FAILURE);
-}
 
 /* allocates a new/first node, and returns a pointer to the user */
 struct node_data *
@@ -342,4 +304,46 @@ nodealloc(nodename)
 	nodex->free = 1;
 	nodex->index = 1.0;
 	return(nodex);
+}
+
+#endif /* CLUSTERS */
+
+/* return a string, followed by n - strlen spaces */
+
+char *
+alignstring(string, n)
+	char *string;
+	size_t n;
+{
+	size_t i;
+	char *newstring;
+
+	newstring = strdup(string);
+	for (i=1; i <= n - strlen(string); i++)
+		newstring = strcat(newstring, " ");
+
+	return(newstring);
+}
+
+
+/* 
+ * Simple error handling routine, needs severe work.
+ * Its almost totally useless.
+ */
+
+/*ARGSUSED*/
+void
+bailout(line) 
+	int line;
+{
+	extern int errno;
+	
+	if (debug)
+		(void)fprintf(stderr, "%s: Failed on line %d: %s %d\n",
+			progname, line,	strerror(errno), errno);
+	else
+		(void)fprintf(stderr, "%s: Internal error, aborting: %s\n",
+			progname, strerror(errno));
+
+	_exit(EXIT_FAILURE);
 }

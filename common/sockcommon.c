@@ -102,4 +102,5 @@ int read_from_client(filedes, j)
 		return(nbytes);
 	}
 	/*NOTREACHED*/
+	return(0);
 }

@@ -68,17 +68,22 @@ struct group_data {
 typedef struct group_data group_t;
 
 void bailout __P((int));
-void do_showcluster __P((int));
 char *alignstring __P((char *, size_t));
-int parse_cluster __P((char **));
-node_t *nodealloc __P((char *));
 #ifndef __NetBSD__
 char * strsep(char **stringp, const char *delim);
 #endif
+
+#ifdef CLUSTERS
+void do_showcluster __P((int));
+int parse_cluster __P((char **));
+node_t *nodealloc __P((char *));
 
 extern char **lumplist;
 extern char **rungroup;
 extern int exclusion, debug, grouping;
 extern group_t *grouplist;
 extern node_t *nodelink;
+#endif /* CLUSTERS */
+
+extern int debug;
 extern char *progname;
