@@ -6,7 +6,7 @@ OPSYS!=		uname
 CFLAGS=		-O2 -Wall
 PREFIX?=	/usr/local
 
-SUBDIR=		dsh pcp barrier
+SUBDIR=		dsh pcp barrier jsd
 
 all:
 	@for dir in ${SUBDIR} ; do \
