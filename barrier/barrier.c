@@ -119,7 +119,7 @@ int main(argc, argv)
 		}
 
 	code = make_barrier(key,nodes);
-	if (code == 0) {
+	if (code == 6) {
 		if (!quietflag)
 			(void)printf("Barrier met, continuing: %s\n", key);
 		return(EXIT_SUCCESS);
@@ -165,7 +165,7 @@ int make_barrier(key, nodes)
 		(void)printf("Barrier syncing with token: %s\n", key);
 	sprintf(message, "%s %d", key, nodes);
 	write_to_server(sock, message);
-	return(read(sock, &p, 1));
+	return(read(sock, &p, 6));
 }
 
 int write_to_server(int filedes, char *buf)

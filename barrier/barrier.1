@@ -81,7 +81,8 @@ Sets the default remote port to connect to.
 Sets the default remote host to connect to.
 .\" .Sh FILES
 .Sh DIAGNOSTICS
-Exit status is 0 on success, 1 if an error occurs.
+Exit status is 0 on successful syncronization.  Exit status will be set to 1 if
+the connection is lost, or the server rejects your connection.
 .Sh SEE ALSO
 .Xr barrierd 1 ,
 .Xr dsh 1 ,

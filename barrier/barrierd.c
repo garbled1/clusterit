@@ -248,6 +248,7 @@ int sleeper(void)
 									if (connections[k] == sizes[k]) {
 										l = connections[k];
 										for (m=0; m < l; m++) {
+											write_to_client(sockets[k][m],"passed");
 											close(sockets[k][m]);
 											FD_CLR (sockets[k][m], &active_fd_set);
 											sockets[k][m] = 0;
