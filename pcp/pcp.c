@@ -31,9 +31,9 @@
  * SUCH DAMAGE.
  */
 
-#include <sys/resource.h>
 #include <sys/time.h>
 #include <sys/types.h>
+#include <sys/resource.h>
 #include <sys/wait.h>
 
 #include <fcntl.h>
@@ -288,7 +288,7 @@ paralell_copy(rcp, args, nodelist, source_file, destination_file)
 	char *rcp, *args, *nodelist[], *source_file, *destination_file;
 {
 	int i, j, n, g, status;
-	char buf[512], pipebuf[2048], *cd, *dfile, *p;
+	char buf[512], pipebuf[2048], *cd, *p;
 	FILE *fd, *in;
 	int out[fanout+1][2];
 	int err[fanout+1][2];
@@ -327,9 +327,7 @@ paralell_copy(rcp, args, nodelist, source_file, destination_file)
 				if (fcntl(err[g][1], F_SETFD, 1) == -1)
 					bailout(__LINE__);
 #ifdef DEBUG
-				(void)sprintf(buf, "%s:%s", nodelist[i], destination_file);
-				dfile = strdup(buf);
-				printf("%s%s %s %s\n", rcp, args, source_file, dfile);
+				printf("%s %s %s %s %s:%s\n", rcp, args, source_file, nodelist[i], destination_file);
 #endif
 				switch (fork()) {
 					case -1:
