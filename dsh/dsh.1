@@ -142,6 +142,7 @@ commands in parallel.  Defaults to 64.  This environment setting can be
 overridden by the
 .Fl f
 option.
+.El
 .Sh FILES
 The file pointed to by the
 .Ev CLUSTER
@@ -171,7 +172,12 @@ There is also a LUMP command, which is identical in syntax to the GROUP
 command.  This command allows you to create a named group of groups.  Each
 member of the lump is the name of a group.  The LUMP command is terminated
 by another LUMP or GROUP command, or the EOF marker.
-.El
+.Pp
+Any line beginning with a
+.Sq #
+symbol denotes a comment field, and the entire line will be ignored.
+Note that a hash mark placed anywhere other than the first character
+of a line, will be considered part of a valid hostname or command.
 .Sh EXAMPLES
 The command:
 .Bd -literal -offset indent
