@@ -26,4 +26,4 @@ install: ${PROG}
 	${INSTALL} -c -o bin -g bin -m 0444 pcp.1 ${PREFIX}/man/man1
 
 clean:
-	rm -f ${PROG} *.o dshbak.sh ../common/*.o
+	rm -f ${PROG} *.o ../common/*.o
