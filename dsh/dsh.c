@@ -49,7 +49,6 @@ __COPYRIGHT(
 __RCSID("$Id$");
 #endif /* not lint */
 
-extern int errno;
 #ifndef __P
 #define __P(protos) protos
 #endif
@@ -73,13 +72,10 @@ char *progname;
  */
 
 int
-main(argc, argv)
-	int argc;
-	char *argv[];
+main(int argc, char *argv[])
 {
 	extern char	*optarg;
 	extern int	optind;
-	extern int debug, errorflag, gotsigterm, gotsigint;
 
 	int someflag, ch, i, fanout, showflag, fanflag;
 	char *p, *q, *group, *nodename, *username;
@@ -249,8 +245,6 @@ do_command(argv, fanout, username)
 	char *p, *command, *rsh, *cd;
 	node_t *nodeptr, *nodehold;
 
-	extern int debug, gotsigterm, gotsigint;
-
 	maxnodelen = 0;
 	j = i = 0;
 	piping = 0;
@@ -302,6 +296,8 @@ do_command(argv, fanout, username)
 				command = NULL;
 	} else {
 		close(STDIN_FILENO); /* DAMN this bug took awhile to find */
+		if (open("/dev/null", O_RDONLY, NULL) != 0)
+			bailout(__LINE__);
 	}
 
 	signaler.sa_handler = sig_handler;
@@ -366,7 +362,9 @@ do_command(argv, fanout, username)
 						bailout(__LINE__);
 					rsh = getenv("RCMD_CMD");
 					if (rsh == NULL)
-						rsh = "rsh";
+						rsh = strdup("rsh");
+					if (rsh == NULL)
+						bailout(__LINE__);
 					if (debug)
 						(void)printf("%s %s %s\n", rsh, nodeptr->name,
 							command);
@@ -439,9 +437,6 @@ void
 sig_handler(i)
 	int i;
 {
-	extern int gotsigterm;
-	extern pid_t currentchild;
-
 	switch (i) {
 		case SIGINT:
 			killpg(currentchild, SIGINT);

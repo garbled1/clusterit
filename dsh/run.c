@@ -69,9 +69,7 @@ group_t *grouplist;
  */
 
 int
-main(argc, argv) 
-	int argc;
-	char *argv[];
+main(int argc, char *argv[])
 {
 	extern char *optarg;
 	extern int optind;
@@ -80,9 +78,6 @@ main(argc, argv)
 	char *p, *q, *group, *nodename, *username;
 	char **exclude, **grouptemp;
 	node_t *nodeptr;
-
-	extern int debug;
-	extern int errorflag;
 
 	someflag = 0;
 	showflag = 0;
@@ -244,8 +239,6 @@ do_command(argv, allrun, username)
 	node_t *nodeptr;
 	size_t maxnodelen;
 
-	extern int debug;
-
 	i = 0;
 	piping = 0;
 	in = NULL;
@@ -313,7 +306,9 @@ do_command(argv, allrun, username)
 					bailout(__LINE__);
 				rsh = getenv("RCMD_CMD");
 				if (rsh == NULL)
-					rsh = "rsh";
+					rsh = strdup("rsh");
+				if (rsh == NULL)
+					bailout(__LINE__);
 				if (debug)
 					printf("%s %s %s\n", rsh, nodeptr->name, command);
 				if (username != NULL)
