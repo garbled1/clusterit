@@ -40,13 +40,13 @@
 #include <stdio.h>
 #include <string.h>
 
-#ifndef lint
+#if !defined(lint) && defined(__NetBSD__)
 __COPYRIGHT(
 "@(#) Copyright (c) 1998\n\
         Tim Rightnour.  All rights reserved\n");
 #endif /* not lint */
 
-#ifndef lint
+#if !defined(lint) && defined(__NetBSD__)
 __RCSID("$Id$");
 #endif
 
@@ -118,7 +118,7 @@ int main(argc, argv)
 			exit(EXIT_FAILURE);
 		}
 
-	code = make_barrier(key,nodes);
+	code = make_barrier(key, nodes);
 	if (code == 6) {
 		if (!quietflag)
 			(void)printf("Barrier met, continuing: %s\n", key);
@@ -163,7 +163,7 @@ int make_barrier(key, nodes)
 	}
 	if (!quietflag)
 		(void)printf("Barrier syncing with token: %s\n", key);
-	sprintf(message, "%s %d", key, nodes);
+	(void)sprintf(message, "%s %d", key, nodes);
 	write_to_server(sock, message);
 	return(read(sock, &p, 6));
 }

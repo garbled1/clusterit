@@ -1,22 +1,24 @@
 # $Id$
 # barrier Makefile: Tim Rightnour
 
-CC?=		/usr/local/bin/gcc
+CC=		/usr/local/bin/gcc
 CFLAGS?=	-Wall -O2
 PROGS= 		barrierd barrier
-
+LIBS=		-lsocket -lnsl
+#
 BSRCS=		barrier.c
 DSRCS=		barrierd.c
+DSRCS+=		strsep.c
 
 MAN= barrierd.1 barrier.1
 
 all: barrier barrierd
 
 barrier: ${BSRCS:.c=.o}
-	${CC} ${CFLAGS} -o $@ ${BSRCS:.c=.o}
+	${CC} ${CFLAGS} -o $@ ${BSRCS:.c=.o} ${LIBS}
 
 barrierd: ${DSRCS:.c=.o}
-	${CC} ${CFLAGS} -o $@ ${DSRCS:.c=.o}
+	${CC} ${CFLAGS} -o $@ ${DSRCS:.c=.o} ${LIBS}
 
 install: ${PROGS}
 	/usr/bin/install -c -s -o bin -g bin -m 0755 barrier ${PREFIX}/bin
