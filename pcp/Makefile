@@ -6,9 +6,10 @@
 #CC= /usr/local/bin/gcc
 PROG=		pcp
 CFLAGS?=	-O2 -Wall
+CFLAGS+=	-DCLUSTERS
 
-SRCS= pcp.c ../common/strsep.c ../common/common.c
-#SRCS= pcp.c ../common/common.c
+#SRCS= pcp.c ../common/strsep.c ../common/common.c
+SRCS= pcp.c ../common/common.c
 
 SCRIPTS=	prm pdf dshbak
 MAN=		pcp.1 prm.1 pdf.1
@@ -38,4 +39,4 @@ install: ${PROG} ${SCRIPTS}
 	/usr/bin/install -c -o bin -g bin -m 0444 dshbak.1 ${PREFIX}/man/man1
 
 clean:
-	rm -f ${PROG} ${SCRIPTS} *.o dshbak.sh
+	rm -f ${PROG} ${SCRIPTS} *.o dshbak.sh ../common/*.o
