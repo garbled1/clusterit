@@ -7,8 +7,8 @@
 PROG=		pcp
 CFLAGS?=	-O2 -Wall
 
-#SRCS= pcp.c strsep.c
-SRCS= pcp.c
+SRCS= pcp.c ../common/strsep.c ../common/common.c
+#SRCS= pcp.c ../common/common.c
 
 SCRIPTS=	prm pdf dshbak
 MAN=		pcp.1 prm.1 pdf.1
@@ -17,6 +17,9 @@ all: ${PROG} scripts
 
 ${PROG}: ${SRCS:.c=.o}
 	${CC} ${CFLAGS} -o $@ ${SRCS:.c=.o}
+
+${SRCS:.c=.o}: ${SRCS}
+	${CC} ${CFLAGS} -c $*.c -o $*.o
 
 scripts: ${SCRIPTS}
 

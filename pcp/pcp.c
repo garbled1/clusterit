@@ -36,7 +36,7 @@
 #include <sys/types.h>
 #include <sys/resource.h>
 #include <sys/wait.h>
-#include "../dsh/common.h"
+#include "../common/common.h"
 
 #if !defined(lint) && defined(__NetBSD__)
 __COPYRIGHT(
@@ -53,11 +53,12 @@ void paralell_copy __P((char *rcp, char *args, char *source_file,
 void serial_copy __P((char *rcp, char *args, char *source_file,
 	char *destination_file));
 
-char **grouplist;
+char **lumplist;
 char **rungroup;
 char *progname;
 int fanout, concurrent, quiet, debug, grouping, exclusion;
 node_t *nodelink;
+group_t *grouplist;
 
 /* 
  *  pcp is a cluster management tool based on the IBM tool of the
