@@ -1,13 +1,11 @@
 # $Id$
 # Makefile for dsh:  Tim Rightnour
 
+CC= /usr/local/bin/gcc
 PROG=		pcp
 
-.if (${OPSYS} != NetBSD)
 SRCS= pcp.c strsep.c
-.else
-SRCS= pcp.c
-.endif
+#SRCS= pcp.c
 
 SCRIPTS=	prm pdf dshbak
 MAN=		pcp.1 prm.1 pdf.1
