@@ -32,6 +32,8 @@
  */
 
 #include <signal.h>
+#include <sys/types.h>
+#include <sys/wait.h>
 #include "../common/common.h"
 #include "../common/sockcommon.h"
 
@@ -57,9 +59,10 @@ void log_bailout __P((int));
 
 int debug, exclusion, grouping;
 int errorflag, iportnum, oportnum;
-char **grouplist;
 char **rungroup;
+char **lumplist;
 char *progname, *jsd_host;
+group_t *grouplist;
 node_t *nodelink;
 
 /* 
