@@ -67,14 +67,12 @@ group_t *grouplist;
  */
 
 int
-main(argc, argv) 
-	int argc;
-	char *argv[];
+main(int argc, char *argv[])
 {
 	extern char *optarg;
 	extern int optind;
 
-	int someflag, ch, i, preserve, recurse, exclusion;
+	int someflag, ch, i, preserve, recurse;
 	char *p, *q, *nodename, *username, *group;
 	char **exclude, **grouptemp;
 	node_t *nodeptr;
@@ -106,7 +104,7 @@ main(argc, argv)
 	}
 	progname = strdup(q);
 
-	while ((ch = getopt(argc, argv, "?ceprf:g:l:w:x:")) != -1)
+	while ((ch = getopt(argc, argv, "?cdeprf:g:l:w:x:")) != -1)
 		switch (ch) {
 		case 'c':		/* set concurrent mode */
 			concurrent = 1;
@@ -245,6 +243,11 @@ void do_copy(argv, recurse, preserve, username)
 	while (*++argv != NULL) {
 		numsource++;
 		if (tempstore != NULL) {
+			source_file = realloc(source_file,
+			    ((strlen(source_file)+2+strlen(tempstore)) *
+			    sizeof(char)));
+			if (source_file == NULL)
+				bailout(__LINE__);
 			source_file = strcat(source_file, " ");
 			source_file = strdup(strcat(source_file, tempstore));
 		}
@@ -260,7 +263,9 @@ void do_copy(argv, recurse, preserve, username)
 
 	rcp = getenv("RCP_CMD");
 	if (rcp == NULL)
-		rcp = "rcp";
+		rcp = strdup("rcp");
+	if (rcp == NULL)
+		bailout(__LINE__);
 	(void)sprintf(args, " ");
 	if (recurse)
 		strcat(args, "-r ");
