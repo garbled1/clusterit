@@ -201,19 +201,21 @@ void main(argc, argv)
 	argc -= optind;
 	argv += optind;
 	/*  now we do the magic to increment.  God I wish netbsd semget worked */
+	p = NULL;
 	seqfile = getenv("SEQ_FILE");
 	if (seqfile == NULL) {
 		sprintf(buf,"/tmp/%d.seq", getppid());
 		seqfile = strdup(buf);
 	}
-	sd = fopen(seqfile,"r");
+	sd = fopen(seqfile, "r");
 	if (sd == NULL)
-		sd = fopen(seqfile,"w");
+		sd = fopen(seqfile, "w");
 	else {
-		fscanf(sd,"%s", p);
-		setenv("SEQ_LAST",p,1);
+		fscanf(sd,"%s", buf);
+		p = strdup(buf);
+		setenv("SEQ_LAST", p, 1);
 		fclose(sd);
-		sd = fopen(seqfile,"w");
+		sd = fopen(seqfile, "w");
 	}
 	if (sd == NULL)
 		bailout(__LINE__);
