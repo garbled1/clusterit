@@ -227,7 +227,7 @@ void test_and_set(char *nodelist[])
 	char buf[256];
 	FILE *sd;
 
-	p = NULL;
+	p = buf;
 	i = 0;
 
 	seqfile = getenv("SEQ_FILE");
@@ -239,8 +239,7 @@ void test_and_set(char *nodelist[])
 	if (sd == NULL)
 		sd = fopen(seqfile, "w");
 	else {
-		fscanf(sd, "%s", buf);
-		p = strdup(buf);
+		fscanf(sd, "%s", p);
 		seqnumber = atoi(p);
 		fclose(sd);
 		sd = fopen(seqfile, "w");
