@@ -1,6 +1,8 @@
 # $Id$
 # no particular order:
 
+Port interrupt handling to seq and run.
+
 Fix handling of g in loops.  If you have a massive cluster, and pick
 two sparse groups in it.. it will run twice, rather than once..
 

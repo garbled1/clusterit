@@ -1,5 +1,8 @@
 $Id$
 
+Fix a bug in pcp where if the -m option was used, filesystems at 100%
+would not be displayed.
+
 Handle ^C's correctly.  If a remote process is hung, and it is the current
 process being read, you may ^C it, and the interrupt will be sent to the
 remote process.  This would be just like hitting ^C on the remote end, 
