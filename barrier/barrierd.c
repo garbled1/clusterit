@@ -58,16 +58,17 @@ __RCSID("$Id$");
 
 int barrier_port;
 
-#ifdef __NetBSD__
+#ifndef __P
+#define __P(protos) protos
+#endif
+
 int make_socket __P((void));
 int sleeper __P((void));
 int write_to_client __P((int filedes, char *buf));
 int read_from_client __P((int filedes, char **j));
-#else
-int make_socket(void);
-int sleeper(void);
-int write_to_client(int filedes, char *buf);
-int read_from_client(int filedes, char **j);
+
+#ifndef __NetBSD__
+char * strsep(char **stringp, const char *delim);
 #endif
 
 int main(argc, argv)

@@ -55,10 +55,12 @@ __RCSID("$Id$");
 int quietflag, barrier_port;
 char *barrier_host;
 
-#ifdef __NetBSD__
+#ifndef __P
+#define __P(protos) protos
+#endif
+
 int make_barrier __P((char *key, int nodes));
 int write_to_server __P((int filedes, char *buf));
-#endif
 
 int main(argc, argv)
 	int argc;
