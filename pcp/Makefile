@@ -21,7 +21,7 @@ ${PROG}: ${SRCS:.c=.o}
 	${CC} ${CFLAGS} -o $@ ${SRCS:.c=.o}
 
 ${SRCS:.c=.o}: ${SRCS}
-	${CC} ${CFLAGS} -c $*.c -o $*.o
+	${CC} ${CFLAGS} -c $< -o $@
 
 ${SRCS:.c=.ln}: ${SRCS}
 	${LINT} ${LINTFLAGS} -o $*.ln -i $*.c
