@@ -2,7 +2,7 @@
 # Makefile for clusterit:  Tim Rightnour
 
 OPSYS!=		uname
-CC=		/usr/local/bin/gcc
+#CC=		/usr/local/bin/gcc
 CFLAGS=		-O2 -Wall
 PREFIX?=	/usr/local
 
