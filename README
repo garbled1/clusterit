@@ -75,9 +75,6 @@ this suite.
 
 Things to do still:
 
-anynode
-	Run a program on "any old node" on the cluster.
-
 supper
 	Mimic IBM's supper suite.. but do a better job of
 it than big blue did.  Yuck.
