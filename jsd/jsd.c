@@ -294,7 +294,7 @@ main_loop()
 	buf = NULL;
 
 	signaler.sa_handler = sig_handler;
-	signaler.sa_flags |= SA_RESTART;
+	signaler.sa_flags = SA_RESTART;
 	sigemptyset(&signaler.sa_mask);
 	if (sigaction(SIGTERM, &signaler, NULL) != 0)
 		log_bailout(__LINE__);
