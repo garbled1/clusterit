@@ -1,3 +1,4 @@
+/* $Id$ */
 /*	$NetBSD: strsep.c,v 1.7 1998/02/03 18:49:23 perry Exp $	*/
 
 /*-
