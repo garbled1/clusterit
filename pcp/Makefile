@@ -29,7 +29,7 @@ ${SRCS:.c=.ln}: ${SRCS}
 lint: ${SRCS:.c=.ln}
 	${LINT} ${LINTFLAGS} ${SRCS:.o=.ln}
 		
-install: ${PROG}
+install: ${PROG} ${MAN}
 	${INSTALL} -c -s -o bin -g bin -m 0755 pcp ${PREFIX}/bin
 	${INSTALL} -c -o bin -g bin -m 0444 pcp.1 ${PREFIX}/man/man1
 clean:
