@@ -5,6 +5,7 @@
 
 #CC= /usr/local/bin/gcc
 PROG=		pcp
+CFLAGS?=	-O2 -Wall
 
 #SRCS= pcp.c strsep.c
 SRCS= pcp.c
@@ -15,7 +16,7 @@ MAN=		pcp.1 prm.1 pdf.1
 all: ${PROG} scripts
 
 ${PROG}: ${SRCS:.c=.o}
-	${CC} -O2 -Wall -o $@ ${SRCS:.c=.o}
+	${CC} ${CFLAGS} -o $@ ${SRCS:.c=.o}
 
 scripts: ${SCRIPTS}
 
