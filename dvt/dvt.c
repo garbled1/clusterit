@@ -417,7 +417,7 @@ do_command(fanout, username)
 	struct sigaction signaler;
 	FILE *fd, *in;
 	char pipebuf[2048];
-	int count, status, i, j, n, g, l, piping;
+	int count, status, i, j, g, l, piping;
 	size_t maxnodelen;
 	char *rsh, *cd;
 	node_t *nodeptr, *nodehold;
@@ -488,8 +488,8 @@ do_command(fanout, username)
 		if (gotsigterm)
 			exit(EXIT_FAILURE);
 		if (debug)
-			(void)printf("Working node: %d, fangroup %d,"
-				" fanout part: %d\n", g, n, i);
+			(void)printf("Working node: %d, fanout part: %d\n",
+			    g, i);
 /*
  * we set up pipes for each node, to prepare for the oncoming barrage of data.
  * Close on exec must be set here, otherwise children spawned after other
@@ -557,8 +557,8 @@ do_command(fanout, username)
 		if (gotsigterm)
 			exit(EXIT_FAILURE);
 		if (debug)
-			(void)printf("Printing node: %d, fangroup %d,"
-				" fanout part: %d\n", g-fanout+i, n, i);
+			(void)printf("Printing node: %d, "
+				" fanout part: %d\n", g-fanout+i, i);
 		currentchild = nodeptr->childpid;
 		/* now close off the useless stuff, and read the goodies */
 		if (close(nodeptr->out.fds[1]) != 0)
