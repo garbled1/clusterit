@@ -7,7 +7,7 @@
 CFLAGS=		-Wall -O2 #-DDEBUG -g
 PROGS=		dsh seq run
 
-OBJS= dsh.o seq.o run.o
+OBJS= dsh.o seq.o run.o common.o
 #SSRCS= strsep.o
 SSRCS=
 #LIBS= -L/usr/pkg/lib -lefence  # this is for my debugging only.
