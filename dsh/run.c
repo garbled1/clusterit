@@ -34,7 +34,8 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
-#include "common.h"
+#define CLUSTERS
+#include "../common/common.h"
 
 #if !defined(lint) && defined(__NetBSD__)
 __COPYRIGHT(
@@ -56,10 +57,11 @@ node_t *check_rand __P((void));
 
 int debug, exclusion, grouping;
 int errorflag;
-char **grouplist;
 char **rungroup;
+char **lumplist;
 char *progname;
 node_t *nodelink;
+group_t *grouplist;
 
 /* 
  *  run is a cluster management tool derrived from the IBM tool of the

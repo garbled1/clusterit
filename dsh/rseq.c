@@ -33,7 +33,9 @@
 
 #include <sys/types.h>
 #include <sys/wait.h>
-#include "common.h"
+
+#define CLUSTERS
+#include "../common/common.h"
 
 #if !defined(lint) && defined(__NetBSD__)
 __COPYRIGHT(
@@ -56,9 +58,10 @@ node_t * check_seq __P((void));
 
 int debug, errorflag, exclusion, grouping;
 int seqnumber;
-char **grouplist;
 char **rungroup;
+char **lumplist;
 node_t *nodelink;
+group_t *grouplist;
 char *progname;
 
 /* 

@@ -40,7 +40,8 @@
 #include <fcntl.h>
 #include <signal.h>
 
-#include "common.h"
+#define CLUSTERS
+#include "../common/common.h"
 
 #if !defined(lint) && defined(__NetBSD__)
 __COPYRIGHT(
@@ -60,8 +61,9 @@ void sig_handler __P((int));
 /* globals */
 int debug, errorflag, gotsigint, gotsigterm, exclusion, grouping;
 node_t *nodelink;
-char **grouplist;
+group_t *grouplist;
 char **rungroup;
+char **lumplist;
 pid_t currentchild;
 char *progname;
 
@@ -82,7 +84,7 @@ main(argc, argv)
 
 	int someflag, ch, i, fanout, showflag, fanflag;
 	char *p, *q, *group, *nodename, *username;
-	char **grouptemp, **exclude;
+	char **exclude, **grouptemp;
 	struct rlimit	limit;
 	node_t *nodeptr;
 
