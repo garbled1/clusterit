@@ -604,8 +604,7 @@ sig_handler(i)
 			gotsigterm = 1;
 			break;
 		default:
-			(void)fprintf(stderr, "Recieved unknown signal in sig_handler\n");
-			_exit(EXIT_FAILURE);
+			bailout(__LINE__);
 			break;
 	}
 }
