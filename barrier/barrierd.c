@@ -165,7 +165,11 @@ int sleeper(void)
 	char *key, *buf;
 	char *tokens[MAX_TOKENS];
 	int i, k, l, m, found, sock;
+#if (NetBSD > 199904)
+	socklen_t size;
+#else
 	size_t size;
+#endif
 	int sizes[MAX_TOKENS];
 	int connections[MAX_TOKENS];
 	int sockets[MAX_TOKENS][MAX_CLUSTER];
