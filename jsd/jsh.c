@@ -291,6 +291,8 @@ do_command(argv, allrun, username)
 				command = NULL;
 	} else {
 		close(STDIN_FILENO);
+		if (open("/dev/null", O_RDONLY, NULL) != 0)
+			bailout(__LINE__);
 	}
 	if (allrun)
 		nodename = check_node();
