@@ -34,7 +34,6 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
-#define CLUSTERS
 #include "../common/common.h"
 
 #if !defined(lint) && defined(__NetBSD__)

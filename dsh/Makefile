@@ -4,18 +4,19 @@
 # Some of the below needs to be uncommented for Solaris to work.
 
 #CC=		/usr/vac/bin/cc
-CC=		/usr/local/bin/gcc
-CFLAGS=		-O2 -Wall #-DDEBUG -g
+#CC=		/usr/local/bin/gcc
+CFLAGS?=	-O2 -Wall #-DDEBUG -g
+CFLAGS+=	-DCLUSTERS
 PROGS=		dsh seq run
 
 OBJS= dsh.o seq.o run.o
-SSRCS= ../common/strsep.o ../common/common.o
-#SSRCS= ../common/common.o
+#SSRCS= ../common/strsep.o ../common/common.o
+SSRCS= ../common/common.o
 #LIBS= -L/usr/pkg/lib -lefence  # this is for my debugging only.
 
 MAN= dsh.1 seq.1 run.1
 
-all: depend ${OBJS} ${SSRCS} ../common/common.h
+all: ${OBJS} ${SSRCS} ../common/common.h
 	@for prog in ${PROGS} ; do \
 		echo ${CC} ${CFLAGS} -o $$prog $$prog.o ${SSRCS} ${LIBS}; \
 		${CC} ${CFLAGS} -o $$prog $$prog.o ${SSRCS} ${LIBS}; \
