@@ -7,7 +7,7 @@ OPSYS!=		uname
 PREFIX?=	/usr/local
 INSTALL?=	/usr/bin/install
 
-SUBDIR=		dsh pcp barrier jsd rvt dvt
+SUBDIR=		dsh pcp barrier jsd rvt dvt tools
 
 all:
 	@for dir in ${SUBDIR} ; do \
