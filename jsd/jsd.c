@@ -36,6 +36,7 @@
  *
  */
 
+#include <errno.h>
 #include <syslog.h>
 #include <signal.h>
 #include <strings.h>
@@ -52,7 +53,6 @@ __COPYRIGHT(
 __RCSID("$Id$");
 #endif
 
-extern int errno;
 #ifndef __P
 #define __P(protos) protos
 #endif
@@ -78,9 +78,7 @@ void free_node __P((int));
  */
 
 int
-main(argc, argv) 
-	int argc;
-	char *argv[];
+main(int argc, char *argv[])
 {
 	extern char	*optarg;
 	extern int	optind;
@@ -297,6 +295,7 @@ main_loop()
 
 	signaler.sa_handler = sig_handler;
 	signaler.sa_flags |= SA_RESTART;
+	sigemptyset(&signaler.sa_mask);
 	if (sigaction(SIGTERM, &signaler, NULL) != 0)
 		log_bailout(__LINE__);
 	
@@ -407,8 +406,6 @@ do_bench_command(argv, fanout, username)
 	char *username;
 	int fanout;
 {
-	extern int debug;
-
 	FILE *fd, *in;
 	char pipebuf[2048];
 	int status, i, j, n, g;
@@ -439,7 +436,7 @@ do_bench_command(argv, fanout, username)
 		j++;
 	}
 	if (debug)
-		syslog(LOG_DEBUG, q);
+		syslog(LOG_DEBUG, "%s", q);
 
 	i = j; /* side effect of above */
 	j = i / fanout;
@@ -490,7 +487,9 @@ do_bench_command(argv, fanout, username)
 					log_bailout(__LINE__);
 				rsh = getenv("RCMD_CMD");
 				if (rsh == NULL)
-					rsh = "rsh";
+					rsh = strdup("rsh");
+				if (rsh == NULL)
+					bailout(__LINE__);
 				if (debug)
 					syslog(LOG_DEBUG, "%s %s %s", rsh, nodeptr->name,
 						argv);
@@ -539,8 +538,6 @@ void
 log_bailout(line) 
 	int line;
 {
-	extern int errno;
-	
 	if (debug)
 		syslog(LOG_CRIT, "%s: Failed on line %d: %m %d", progname, line,
 			errno);
