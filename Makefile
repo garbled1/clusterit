@@ -6,7 +6,7 @@ CC?=		/usr/local/bin/gcc
 CFLAGS=		-O2 -Wall
 PREFIX?=	/usr/local
 
-SUBDIR=		dsh pcp
+SUBDIR=		dsh pcp barrier
 
 all:
 	for dir in ${SUBDIR} ; do \
