@@ -1,9 +1,9 @@
 #!/bin/sh
 # $Id$
-args=`getopt dfrPRWw: $*`
+args=`getopt dfrPRWw:g:x: $*`
 if test $? != 0
 then
-	echo 'Usage: prm [-dfrPRW] [-w node1,...,nodeN] file ...'
+	echo 'Usage: prm [-dfrPRW] [-g nodegroup] [-w node1,...,nodeN] [-x node1,...,nodeN] file ...'
 	exit 2
 fi
 set -- $args
@@ -15,12 +15,20 @@ do
 			flag=`echo $flag $i`; shift;;
 		-w)
 			warg=$2; shift; shift;;
+		-g)
+			garg=$2; shift; shift;;
+		-x)
+			xarg=$2; shift; shift;;
 		--)
 			shift; break;;
 	esac
 done
-if [ -z $warg ]; then
-	dsh rm $flag $*
-else
-	dsh -w $warg rm $flag $*
+if [ -n "$warg" ]; then
+	dshargs=`echo "-w $warg"`
+elif [ -n "$garg" ]; then
+	dshargs=`echo "-g $garg"`
 fi
+if [ -n "$xarg" ]; then
+	dshargs=`echo "$dshargs -x $xarg"`
+fi
+dsh $dshargs rm $flag $*
