@@ -41,7 +41,9 @@
 #include <string.h>
 #include <netinet/in.h>
 #include <sys/socket.h>
+#include <sys/mbuf.h>
 #include <net/if.h>
+#include <net/if_dl.h>
 #include <netinet/if_ether.h>
 #include <arpa/inet.h>
 #include <sys/time.h>
