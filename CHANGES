@@ -1,5 +1,14 @@
 $Id$
 
+Add a jsd dir, and move jsd.c from dsh to the jsd dir.  Add nearly complete
+jsh program, and jcommon.[ch].
+
+Add new common subdir and move a tonnage of crap in there.  Mainly
+common.c, common.h and strsep.c.
+
+Fix horrid bug in dsh where dsh | more would lock terminals up.  Still
+need to fix in seq, run, probably pcp.
+
 Add <netinet/if_ether.h> to barrierd.c to shut AIX C up.
 
 Lots of minor bugfixes, mostly dealing with failures to open files, opening
