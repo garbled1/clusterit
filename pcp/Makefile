@@ -1,11 +1,13 @@
 # $Id$
 # Makefile for dsh:  Tim Rightnour
 
-CC= /usr/local/bin/gcc
+#Uncomment things for solaris.
+
+#CC= /usr/local/bin/gcc
 PROG=		pcp
 
-SRCS= pcp.c strsep.c
-#SRCS= pcp.c
+#SRCS= pcp.c strsep.c
+SRCS= pcp.c
 
 SCRIPTS=	prm pdf dshbak
 MAN=		pcp.1 prm.1 pdf.1
