@@ -1,14 +1,16 @@
 # $Id$
 # barrier Makefile: Tim Rightnour
 
-CC=		/usr/local/bin/gcc
+# Some options need to be uncommented for Solaris
+
+#CC=		/usr/local/bin/gcc
 CFLAGS?=	-Wall -O2
 PROGS= 		barrierd barrier
-LIBS=		-lsocket -lnsl
+#LIBS=		-lsocket -lnsl
 #
 BSRCS=		barrier.c
 DSRCS=		barrierd.c
-DSRCS+=		strsep.c
+#DSRCS+=		strsep.c
 
 MAN= barrierd.1 barrier.1
 
