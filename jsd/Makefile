@@ -14,7 +14,7 @@ OBJS= jsh.o jsd.o
 SSRCS= ../common/common.o ../common/sockcommon.o
 #LIBS= -L/usr/pkg/lib -lefence  # this is for my debugging only.
 
-MAN= #empty
+MAN=	jsh.1 jsd.1
 
 all: ${OBJS} ${SSRCS} ../common/common.h ../common/sockcommon.h
 	@for prog in ${PROGS} ; do \

@@ -133,7 +133,7 @@ main(argc, argv)
 			break;			
 		case '?':		/* you blew it */
 			(void)fprintf(stderr,
-			    "usage: %s [-aei] [-l username] [-p portnum] [-o portnum] "
+			    "usage: %s [-aei] [-l username] [-p port] [-o port] "
 				"[-h hostname] [command ...]\n", progname);
 			exit(EXIT_FAILURE);
 			break;

@@ -191,10 +191,9 @@ main(argc, argv)
 			break;
 		case '?':		/* you blew it */
 			(void)fprintf(stderr,
-			    "usage: jsd [-iq] [-p port] [-f fanout] "
-				"[-g rungroup1,...,rungroupN] "
-			    "[-l username] [-x node1,...,nodeN] [-w node1,..,nodeN] "
-			    "[command ...]\n");
+			    "usage: jsd [-iq] [-f fanout] [-g rungroup1,...,rungroupN] "
+				"[-l username] [-p port] [-o port] [-w node1,..,nodeN] "
+				"[-x node1,...,nodeN] [command ...]\n");
 			return(EXIT_FAILURE);
 			/*NOTREACHED*/
 			break;
