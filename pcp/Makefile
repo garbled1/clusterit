@@ -11,14 +11,18 @@ CFLAGS+=	-DCLUSTERS
 #CFLAGS=		-DCLUSTERS
 
 #SRCS= pcp.c ../common/netbsd.c ../common/common.c
-SRCS= pcp.c ../common/common.c
+SRCS= pcp.c
+SOBJS= common.o
 
 MAN=		pcp.1
 
 all: ${PROG}
 
-${PROG}: ${SRCS:.c=.o}
-	${CC} ${CFLAGS} -o $@ ${SRCS:.c=.o}
+${PROG}: ${SRCS:.c=.o} ${SOBJS}
+	${CC} ${CFLAGS} -o $@ ${SRCS:.c=.o} ${SOBJS}
+
+common.o: ../common/common.c
+	${CC} ${CFLAGS} -c $? -o $@
 
 ${SRCS:.c=.o}: ${SRCS}
 	${CC} ${CFLAGS} -c $< -o $@
