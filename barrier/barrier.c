@@ -47,8 +47,6 @@ __COPYRIGHT(
 __RCSID("$Id$");
 #endif
 
-#define BARRIER_SOCK 1933	/* default socket for barrier */
-
 int quietflag, barrier_port;
 char *barrier_host;
 
