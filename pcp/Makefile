@@ -35,6 +35,6 @@ lint: ${SRCS:.c=.ln}
 		
 install: ${PROG} ${MAN}
 	${INSTALL} -c -s -o bin -g bin -m 0755 pcp ${PREFIX}/bin
-	${INSTALL} -c -o bin -g bin -m 0444 pcp.1 ${PREFIX}/man/man1
+	${INSTALL} -c -o root -g wheel -m 0444 pcp.1 ${PREFIX}/man/man1
 clean:
 	rm -f ${PROG} *~ *.core core *.o ../common/*.o ../common/*.ln *.ln

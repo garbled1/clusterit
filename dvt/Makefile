@@ -34,14 +34,12 @@ lint: ${SSRCS:.o=.ln} ${OBJS:.o=.ln}
 ${SSRCS:.o=.ln} ${OBJS:.o=.ln}: ${SSRCS:.o=.c} ${OBJS:.o=.c}
 	${LINT} ${LINTFLAGS} -o $*.ln -i $*.c
 
-
-
 ${SSRCS}: ${SSRCS:.o=.c}
 	${CC} ${CFLAGS} -c $*.c -o $*.o
 
 install: ${PROGS} ${MAN}
 	${INSTALL} -c -s -o bin -g bin -m 0755 ${PROGS} ${PREFIX}/bin
-	${INSTALL} -c -o bin -g bin -m 0444 ${MAN} ${PREFIX}/man/man1
+	${INSTALL} -c -o root -g wheel -m 0444 ${MAN} ${PREFIX}/man/man1
 
 clean:
 	rm -f *.o *.core core *~ ${PROGS} ../common/*.o ../common/*.ln *.ln

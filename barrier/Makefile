@@ -48,9 +48,9 @@ ${DSRCS:.c=.o}: ${DSRCS}
 
 install: ${PROGS} ${MAN}
 	${INSTALL} -c -s -o bin -g bin -m 0755 barrier ${PREFIX}/bin
-	${INSTALL} -c -o bin -g bin -m 0444 barrier.1 ${PREFIX}/man/man1
+	${INSTALL} -c -o root -g wheel -m 0444 barrier.1 ${PREFIX}/man/man1
 	${INSTALL} -c -s -o bin -g bin -m 0755 barrierd ${PREFIX}/bin
-	${INSTALL} -c -o bin -g bin -m 0444 barrierd.1 ${PREFIX}/man/man1
+	${INSTALL} -c -o root -g wheel -m 0444 barrierd.1 ${PREFIX}/man/man1
 
 clean:
 	rm -f *.o *.core core *~ ${PROGS} ../common/*.o ../common/*.ln *.ln

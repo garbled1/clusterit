@@ -38,7 +38,7 @@ ${SSRCS}: ${SSRCS:.o=.c}
 
 install: ${PROGS} ${MAN}
 	${INSTALL} -c -s -o bin -g bin -m 0755 ${PROGS} ${PREFIX}/bin
-	${INSTALL} -c -o bin -g bin -m 0444 ${MAN} ${PREFIX}/man/man1
+	${INSTALL} -c -o root -g wheel -m 0444 ${MAN} ${PREFIX}/man/man1
 
 clean:
 	rm -f *.ln *.o *.core core *~ ${PROGS} ../common/*.o ../common/*.ln
