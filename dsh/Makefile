@@ -1,22 +1,22 @@
 # $Id$
 # dsh Makefile: Tim Rightnour
 
+# Some of the below needs to be uncommented for Solaris to work.
+
 #CC=		/usr/local/bin/gcc
 CFLAGS=		-Wall -O2
 PROGS=		dsh seq run
-OPSYS!=		uname
 
-.if ${OPSYS} != NetBSD
-SSRCS= strsep.c
-.else
+OBJS= dsh.o seq.o run.o
+#SSRCS= strsep.o
 SSRCS= 
-.endif
 
 MAN= dsh.1 seq.1 run.1
 
-all: ${PROGS}.c ${SSRCS}
-	for prog in ${PROGS} ; do \
-		${CC} ${CFLAGS} -o $$prog $$prog.c ${SSRCS}; \
+all: ${OBJS} ${SSRCS}
+	@for prog in ${PROGS} ; do \
+		echo ${CC} ${CFLAGS} -o $$prog $$prog.o ${SSRCS}; \
+		${CC} ${CFLAGS} -o $$prog $$prog.o ${SSRCS}; \
 	done
 
 install: ${PROGS} ${MAN}
