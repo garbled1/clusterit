@@ -39,7 +39,7 @@
 .Nd copy a file to a cluster of machines
 .Sh SYNOPSIS
 .Nm
-.Op Fl cerp
+.Op Fl cepr
 .Op Fl f Ar fanout
 .Op Fl g Ar rungroup1,...,rungroupN
 .Op Fl w Ar node1,...,nodeN
@@ -146,7 +146,7 @@ silently ignored if used with the
 option.
 .Sh ENVIRONMENT
 .Nm
-utilizes the following environment variables.
+utilizes the following environment variables:
 .Bl -tag -width "RCP_CMD"
 .It Ev CLUSTER
 Contains a filename, which is a newline separated list of nodes

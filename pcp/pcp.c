@@ -183,8 +183,8 @@ main(argc, argv)
 			break;
 		case '?':
 			(void)fprintf(stderr,
-				"usage: %s [-cepr] [-f fanout] [-g rungroup1,...,rungroupN]"
-				" [-l username] [-x node1,...,nodeN] [-w node1,..,nodeN] "
+				"usage: %s [-cepr] [-f fanout] [-g rungroup1,...,rungroupN] "
+				"[-l username] [-x node1,...,nodeN] [-w node1,..,nodeN] "
 				"source_file1 [source_file2 ... source_fileN] "
 				"[desitination_file]\n", progname);
 			return(EXIT_FAILURE);
