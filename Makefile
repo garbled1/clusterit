@@ -3,14 +3,14 @@
 
 OPSYS!=		uname
 #CC=		/usr/local/bin/gcc
-CFLAGS=		-O2 -Wall
 PREFIX?=	/usr/local
 
 SUBDIR=		dsh pcp barrier jsd
 
 all:
 	@for dir in ${SUBDIR} ; do \
-		(cd $$dir && make CC=${CC} "CFLAGS=${CFLAGS}" OPSYS=${OPSYS}) ;\
+		(cd $$dir && make clean OPSYS=${OPSYS}) ;\
+		(cd $$dir && make CC=${CC} OPSYS=${OPSYS}) ;\
 	done
 
 clean:
