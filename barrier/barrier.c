@@ -112,14 +112,14 @@ int main(argc, argv)
 		if (getenv("BARRIER_PORT") != NULL)
 			barrier_port = atoi(getenv("BARRIER_PORT"));
 
-	if (barrier_host == NULL)
+	if (barrier_host == NULL) {
 		if (getenv("BARRIER_HOST") != NULL)
 			barrier_host = strdup(getenv("BARRIER_HOST"));
 		else {
 			(void)fprintf(stderr, "No barrier host given on command line, and BARRIER_HOST environment not found.\n");
 			exit(EXIT_FAILURE);
 		}
-
+	}
 	code = make_barrier(key, nodes);
 	if (code == 6) {
 		if (!quietflag)
