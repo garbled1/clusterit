@@ -1,4 +1,4 @@
-#!/bin/sh 
+#!/bin/sh
 # $Id$
 args=`getopt lng:m:t:w:x: $*`
 if test $? != 0
@@ -38,7 +38,7 @@ if test -n "$xarg"; then
 fi
 
 (
-dsh $dshargs 'if [ `uname` = "AIX" ]; then df -kI '$flag $*'; elif [ `uname` = "HP-UX" ]; then bdf '$flag $*'; else df -k '$flag $*'; fi'
+dsh $dshargs 'sh -c "if [ `uname` = "AIX" ]; then df -kI '$flag $*'; elif [ `uname` = "HP-UX" ]; then bdf '$flag $*'; else df -k '$flag $*'; fi"'
 )| grep -v Filesystem | awk '{print $1 " " $3 " " $4 " " $5 " " $6 " " $7 " " $8}' |(
 echo 'Node      Filesystem            1K-Blks     Used    Avail  Cap Mounted On'
 while read node fs blocks used avail capacity mount; do \
