@@ -326,7 +326,8 @@ alignstring(string, n)
 	size_t i;
 	char *newstring;
 
-	newstring = strdup(string);
+	newstring = (char *)malloc(1 + strlen(string) + n * sizeof(char));
+	strcpy(newstring, string);
 	for (i=1; i <= n - strlen(string); i++)
 		newstring = strcat(newstring, " ");
 

@@ -79,7 +79,7 @@ typedef struct group_data group_t;
 
 void bailout __P((int));
 char *alignstring __P((char *, size_t));
-#ifndef __NetBSD__
+#if !defined(__NetBSD__) && !defined(__linux__)
 char * strsep(char **stringp, const char *delim);
 #endif
 #ifdef NEED_PTY

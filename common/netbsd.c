@@ -39,7 +39,9 @@
 
 
 #include <string.h>
+#if !defined(__SVR4) && !defined(__sun__)
 #include <sys/cdefs.h>
+#endif
 #include <sys/types.h>
 #include <sys/ioctl.h>
 #include <sys/stat.h>
@@ -56,6 +58,16 @@
 #include <unistd.h>
 
 #include "../common/common.h"
+
+#ifdef __SVR4
+int
+revoke(path)
+        const char *path;
+{
+        vhangup();        /* XXX */
+        return 0;
+}
+#endif
 
 #define TTY_LETTERS	"pqrstuvwxyzPQRST"
 
