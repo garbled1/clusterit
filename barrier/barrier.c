@@ -62,9 +62,8 @@ int make_barrier __P((char *key, int nodes));
 int write_to_server __P((int filedes, char *buf));
 void log_bailout __P((int));
 
-int main(argc, argv)
-	int argc;
-	char *argv[];
+int
+main(int argc, char *argv[])
 {
 	extern char *optarg;
 
@@ -108,7 +107,9 @@ int main(argc, argv)
 		exit(EXIT_FAILURE);
 	}
 	if (key == NULL)
-		key = "barrier";
+		key = strdup("barrier");
+	if (key == NULL)
+		bailout(__LINE__);
 
 	if (barrier_port == BARRIER_SOCK)
 		if (getenv("BARRIER_PORT") != NULL)
