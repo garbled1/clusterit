@@ -14,7 +14,7 @@ SSRCS=
 
 MAN= dsh.1 seq.1 run.1
 
-all: ${OBJS} ${SSRCS}
+all: ${OBJS} ${SSRCS} common.h
 	@for prog in ${PROGS} ; do \
 		echo ${CC} ${CFLAGS} -o $$prog $$prog.o ${SSRCS} ${LIBS}; \
 		${CC} ${CFLAGS} -o $$prog $$prog.o ${SSRCS} ${LIBS}; \
