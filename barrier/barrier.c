@@ -76,7 +76,11 @@ main(int argc, char *argv[])
 	key = NULL;
 	nodes = 0;
 
+#if defined(__linux__)
+	while ((ch = getopt(argc, argv, "+?dh:k:p:s:")) != -1)
+#else
 	while ((ch = getopt(argc, argv, "?dh:k:p:s:")) != -1)
+#endif
 		switch (ch) {
 		case 'q':
 			quietflag = 0;

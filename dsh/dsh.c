@@ -106,8 +106,11 @@ main(int argc, char *argv[])
 		progname = (char *)strsep(&p, "/");
 	}
 	progname = strdup(q);
-
+#if defined(__linux__)
+	while ((ch = getopt(argc, argv, "+?deiqf:g:l:w:x:")) != -1)
+#else
 	while ((ch = getopt(argc, argv, "?deiqf:g:l:w:x:")) != -1)
+#endif
 		switch (ch) {
 		case 'd':		/* we want to debug dsh (hidden)*/
 			debug = 1;

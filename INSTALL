@@ -7,6 +7,12 @@ patch.
 
 Hints for installing/compiling on various platforms.
 
+Linux:
+patch -p1 <make.linux.gcc should patch the makefiles up properly for a linux
+build.  However, you will need to cd into "src/dsh" and rename seq.1 and seq.c
+to rseq.c and rseq.1.  Apparently there is another command called "seq"
+on linux somewhere.
+
 Solaris:
 If you are using gcc, simply run `patch -p 0 <make.solaris.gcc' in the
 clusterit-1.3/ directory.  This will patch the Makefiles to what most likely

@@ -112,7 +112,11 @@ main(int argc, char *argv[])
 	}
 	progname = strdup(q);
 
+#if defined(__linux__)
+	while ((ch = getopt(argc, argv, "+?diqf:g:l:w:x:p:")) != -1)
+#else
 	while ((ch = getopt(argc, argv, "?diqf:g:l:w:x:p:")) != -1)
+#endif
 		switch (ch) {
 		case 'd':		/* we want to debug jsd (hidden)*/
 			debug = 1;

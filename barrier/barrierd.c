@@ -38,7 +38,7 @@
 #include <string.h>
 #include <strings.h>
 #include <syslog.h>
-#include <varargs.h>
+#include <stdarg.h>
 #include "../common/sockcommon.h"
 
 #if !defined(lint) && defined(__NetBSD__)
@@ -74,7 +74,11 @@ main(int argc, char *argv[])
 	
 	barrier_port = 0;
 
+#if defined(__linux__)
+	while ((ch = getopt(argc, argv, "+?p:")) != -1)
+#else
 	while ((ch = getopt(argc, argv, "?p:")) != -1)
+#endif
 		switch (ch) {
 		case 'p':
 			barrier_port = atoi(optarg);

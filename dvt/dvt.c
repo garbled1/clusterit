@@ -135,7 +135,11 @@ main(int argc, char *argv[])
 	}
 	progname = strdup(q);
 
+#if defined(__linux__)
+	while ((ch = getopt(argc, argv, "+?deiqf:g:l:w:x:")) != -1)
+#else
 	while ((ch = getopt(argc, argv, "?deiqf:g:l:w:x:")) != -1)
+#endif
 		switch (ch) {
 		case 'd':		/* we want to debug dsh (hidden)*/
 			debug = 1;
@@ -286,8 +290,8 @@ setup_xlib(void)
 	size_hints.min_width = 142;
 	size_hints.min_height = 88;
 
-	XSetStandardProperties(display, win, window_name, icon_name, NULL,
-		NULL, 0, &size_hints);
+	XSetStandardProperties(display, win, window_name, icon_name,
+		(Pixmap)NULL, NULL, 0, &size_hints);
 	XSelectInput(display, win, ExposureMask | KeyPressMask | ButtonPressMask
 		| StructureNotifyMask | ButtonReleaseMask);
 	load_font(&font_info);

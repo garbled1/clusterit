@@ -100,7 +100,11 @@ main(int argc, char *argv[])
 	}
 	progname = strdup(q);
 
+#if defined(__linux__)
+	while ((ch = getopt(argc, argv, "+?adeil:k:p:")) != -1)
+#else
 	while ((ch = getopt(argc, argv, "?adeil:k:p:")) != -1)
+#endif
 		switch (ch) {
 		case 'a':		/* set the allrun flag */
 			allflag = 1;

@@ -104,7 +104,11 @@ main(int argc, char *argv[])
 	}
 	progname = strdup(q);
 
+#if defined(__linux__)
+	while ((ch = getopt(argc, argv, "+?cdeprf:g:l:w:x:")) != -1)
+#else
 	while ((ch = getopt(argc, argv, "?cdeprf:g:l:w:x:")) != -1)
+#endif
 		switch (ch) {
 		case 'c':		/* set concurrent mode */
 			concurrent = 1;
