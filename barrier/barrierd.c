@@ -61,7 +61,7 @@ char *progname;
 int sleeper __P((void));
 void log_bailout __P((int));
 
-#ifndef __NetBSD__
+#if !defined(__NetBSD__) && !defined(__linux__)
 char * strsep(char **stringp, const char *delim);
 #endif
 
