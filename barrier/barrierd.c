@@ -35,6 +35,8 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <string.h>
+#include <syslog.h>
+#include <varargs.h>
 #include "../common/sockcommon.h"
 
 #if !defined(lint) && defined(__NetBSD__)
@@ -47,7 +49,8 @@ __RCSID("$Id$");
 #define MAX_TOKENS	10
 #define MAX_CLUSTER	512
 
-int barrier_port;
+int barrier_port, debug;
+char *progname;
 
 #ifndef __P
 #define __P(protos) protos
