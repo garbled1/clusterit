@@ -91,8 +91,8 @@ do_showcluster(fanout)
 		for (i=0; (i < fanout && nodeptr != NULL); i++) {
 			l++;
 			group = NULL;
-			if (nodeptr->group >= 0)
-					group = strdup(grouplist[nodeptr->group].name);
+			if (nodeptr->group >= 0 && grouplist[nodeptr->group].name)
+				group = strdup(grouplist[nodeptr->group].name);
 			if (group == NULL)
 				(void)printf("Node: %3d  Fangroup: %3d  Rungroup: None"
 					"             Host: %-15s\n", l, n + 1, nodeptr->name);
