@@ -40,6 +40,8 @@
 #include <stdio.h>
 #include <string.h>
 
+#include "../common/sockcommon.h"
+
 #if !defined(lint) && defined(__NetBSD__)
 __COPYRIGHT(
 "@(#) Copyright (c) 1998, 1999, 2000\n\

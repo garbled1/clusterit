@@ -8,8 +8,8 @@ CFLAGS?=	-Wall -O2
 PROGS= 		barrierd barrier
 #LIBS=		-lsocket -lnsl
 #
-BSRCS=		barrier.c
-DSRCS=		barrierd.c
+BSRCS=		barrier.c ../common/sockcommon.c
+DSRCS=		barrierd.c ../common/sockcommon.c
 #DSRCS+=		strsep.c
 
 MAN= barrierd.1 barrier.1
