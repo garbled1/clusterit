@@ -1,12 +1,12 @@
 # $Id$
 # Makefile for clusterit:  Tim Rightnour
 
-OPSYS!=	uname
+OPSYS!=		uname
+CC?=		/usr/local/bin/gcc
+CFLAGS=		-O2 -Wall
+PREFIX?=	/usr/local
 
-CC=	/usr/local/bin/gcc
-CFLAGS=	-O2 -Wall
-
-SUBDIR=	dsh pcp
+SUBDIR=		dsh pcp
 
 all:
 	for dir in ${SUBDIR} ; do \
@@ -18,3 +18,7 @@ clean:
 		(cd $$dir && make clean OPSYS=${OPSYS}) ;\
 	done
 
+install:
+	for dir in ${SUBDIR} ; do \
+		(cd $$dir && make install OPSYS=${OPSYS} PREFIX=${PREFIX}) ;\
+	done
