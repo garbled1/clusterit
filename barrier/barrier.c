@@ -163,6 +163,7 @@ int make_barrier(key, nodes)
 	}
 	if (!quietflag)
 		(void)printf("Barrier syncing with token: %s\n", key);
+	sprintf(message, "%s %d", key, nodes);
 	write_to_server(sock, message);
 	return(read(sock, &p, 1));
 }
