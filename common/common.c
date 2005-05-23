@@ -328,6 +328,50 @@ nodealloc(char *nodename)
     return(nodex);
 }
 
+int test_node_connection(int rshport, int timeout, node_t *nodeptr)
+{
+    int sock;
+    struct sockaddr_in name;
+    struct hostent *hostinfo;
+    struct itimerval timer;
+    
+    /* test if the port exists and is serviceable */
+    sock = socket(PF_INET, SOCK_STREAM, 0);
+    if (sock < 0) {
+	perror("socket");
+	exit(EXIT_FAILURE);
+    }
+    name.sin_family = AF_INET;
+    name.sin_port = htons(rshport);
+    hostinfo = gethostbyname(nodeptr->name);
+    if (hostinfo == NULL) {
+	(void)fprintf(stderr, "Unknown host %s.\n", nodeptr->name);
+	close(sock);
+	return(0);
+    }
+    name.sin_addr = *(struct in_addr *) hostinfo->h_addr;
+    timer.it_interval.tv_sec = 0;
+    timer.it_interval.tv_usec = 0;
+    timer.it_value.tv_sec = timeout;
+    timer.it_value.tv_usec = 0;
+    setitimer(ITIMER_REAL, &timer, NULL);
+    if (connect(sock, (struct sockaddr *)&name,
+				sizeof(name)) != 0) {
+	fprintf(stderr, "Cannot connect to port %d on %s\n",
+		rshport, nodeptr->name);
+	close(sock);
+	timer.it_value.tv_sec = 0;
+	timer.it_value.tv_usec = 0;
+	setitimer(ITIMER_REAL, &timer, NULL);
+	return(0);
+    }
+    timer.it_value.tv_sec = 0;
+    timer.it_value.tv_usec = 0;
+    setitimer(ITIMER_REAL, &timer, NULL);
+    close(sock);
+    return(1);
+}
+
 #endif /* CLUSTERS */
 
 /* 

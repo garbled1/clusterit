@@ -61,6 +61,7 @@
 #include <sys/time.h>
 #include <sys/resource.h>
 #include <sys/uio.h>
+#include <sys/socket.h>
 
 #define MAXMSG		512
 #define JSDIPORT	2001
