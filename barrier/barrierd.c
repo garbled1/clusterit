@@ -73,19 +73,19 @@ main(int argc, char **argv)
 #if defined(__linux__)
     while ((ch = getopt(argc, argv, "+?p:")) != -1)
 #else
-	while ((ch = getopt(argc, argv, "?p:")) != -1)
+    while ((ch = getopt(argc, argv, "?p:")) != -1)
 #endif
-	    switch (ch) {
-	    case 'p':
-		barrier_port = atoi(optarg);
-		break;
-	    case '?':
-		(void)fprintf(stderr, "usage: barrierd [-p port]\n");
-		exit(EXIT_FAILURE);
-		break;
-	    default:
-		break;
-	    }
+	switch (ch) {
+	case 'p':
+	    barrier_port = atoi(optarg);
+	    break;
+	case '?':
+	    (void)fprintf(stderr, "usage: barrierd [-p port]\n");
+	    exit(EXIT_FAILURE);
+	    break;
+	default:
+	    break;
+	}
 
     if (barrier_port == 0) {
 	if (getenv("BARRIER_PORT") != NULL)
@@ -169,7 +169,7 @@ sleeper(void)
 			    }
 			    if (!found) /* we didn't find a matching token,
 					   now make a new one */
-				for (k=0; (k < MAX_TOKENS && tokens[k] != NULL);
+				for (k=0;(k < MAX_TOKENS && tokens[k] != NULL);
 				     k++);
 
 			    if (k > MAX_TOKENS - 1) {

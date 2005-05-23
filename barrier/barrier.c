@@ -75,32 +75,32 @@ main(int argc, char **argv)
 #if defined(__linux__)
     while ((ch = getopt(argc, argv, "+?dh:k:p:s:")) != -1)
 #else
-	while ((ch = getopt(argc, argv, "?dh:k:p:s:")) != -1)
+    while ((ch = getopt(argc, argv, "?dh:k:p:s:")) != -1)
 #endif
-	    switch (ch) {
-	    case 'q':
-		quietflag = 0;
-		break;
-	    case 'h':
-		barrier_host = strdup(optarg);
-		break;
-	    case 'k':
-		key = strdup(optarg);
-		break;
-	    case 'p':
-		barrier_port = atoi(optarg);
-		break;
-	    case 's':
-		nodes = atoi(optarg);
-		break;
-	    case '?':
-		(void)fprintf(stderr, "usage: barrier [-q] [-h barrier_host]"
-		    " [-k key] [-p port] -s cluster_size\n");
-		exit(EXIT_FAILURE);
-		break;
-	    default:
-		break;
-	    }
+	switch (ch) {
+	case 'q':
+	    quietflag = 0;
+	    break;
+	case 'h':
+	    barrier_host = strdup(optarg);
+	    break;
+	case 'k':
+	    key = strdup(optarg);
+	    break;
+	case 'p':
+	    barrier_port = atoi(optarg);
+	    break;
+	case 's':
+	    nodes = atoi(optarg);
+	    break;
+	case '?':
+	    (void)fprintf(stderr, "usage: barrier [-q] [-h barrier_host]"
+			  " [-k key] [-p port] -s cluster_size\n");
+	    exit(EXIT_FAILURE);
+	    break;
+	default:
+	    break;
+	}
     if (nodes < 1) {
 	(void)fprintf(stderr, "usage: barrier [-q] [-h barrier_host] "
 	    "[-k key] [-p port] -s cluster_size\n");
