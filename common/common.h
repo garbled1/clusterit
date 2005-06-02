@@ -107,7 +107,7 @@ int test_node_connection(int rshport, int timeout, node_t *nodeptr);
 
 extern char **lumplist;
 extern char **rungroup;
-extern int exclusion, debug, grouping;
+extern int exclusion, debug, grouping, nrofrungroups;
 extern group_t *grouplist;
 extern node_t *nodelink;
 #endif /* CLUSTERS */

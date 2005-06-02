@@ -60,6 +60,7 @@ int testflag, rshport, porttimeout;
 node_t *nodelink;
 group_t *grouplist;
 char **rungroup;
+int nrofrungroups;
 char **lumplist;
 pid_t currentchild;
 char *progname;
@@ -84,7 +85,7 @@ main(int argc, char *argv[])
 
     someflag = showflag = fanflag = 0;
     exclusion = debug = errorflag = 0;
-    testflag = rshport = 0;
+    testflag = rshport = nrofrungroups = 0;
     porttimeout = 5; /* 5 seconds to port timeout */
     gotsigint = gotsigterm = grouping = 0;
     fanout = DEFAULT_FANOUT;
@@ -161,6 +162,7 @@ main(int argc, char *argv[])
 		    }
 		}
 	    }
+	    nrofrungroups = i;
 	    group = NULL;
 	    break;			
 	case 'x':		/* exclude nodes, w overrides this */

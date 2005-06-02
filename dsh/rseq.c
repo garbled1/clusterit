@@ -53,7 +53,7 @@ node_t * check_seq(void);
 /* globals */
 
 int debug, errorflag, exclusion, grouping;
-int seqnumber;
+int seqnumber, nrofrungroups;
 char **rungroup;
 char **lumplist;
 node_t *nodelink;
@@ -83,6 +83,7 @@ int main(int argc, char **argv)
     errorflag = 0;
     allflag = 0;
     grouping = 0;
+    nrofrungroups = 0;
     username = NULL;
     nodename = NULL;
     group = NULL;
@@ -145,6 +146,7 @@ int main(int argc, char **argv)
 		    }
 		}
 	    }
+	    nrofrungroups = i;
 	    group = NULL;
 	    break;			
 	case 'x':		/* exclude nodes, w overrides this */

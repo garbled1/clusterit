@@ -244,7 +244,7 @@ parse_cluster(char **exclude)
 			fail = 1;
 		if (g >= 0) {
 		    gfail = 1;
-		    for (j = 0; (rungroup[j] != NULL && gfail == 1); j++) {
+		    for (j = 0; (j < nrofrungroups && gfail == 1); j++) {
 			int l;
 			if (!strcmp(grouplist[g].name, rungroup[j]))
 			    gfail = 0;

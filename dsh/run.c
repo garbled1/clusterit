@@ -52,7 +52,7 @@ node_t *check_rand(void);
 /* globals */
 
 int debug, exclusion, grouping;
-int errorflag;
+int errorflag, nrofrungroups;
 char **rungroup;
 char **lumplist;
 char *progname;
@@ -82,6 +82,7 @@ main(int argc, char **argv)
     errorflag = 0;
     allflag = 0;
     grouping = 0;
+    nrofrungroups = 0;
     username = NULL;
     nodename = NULL;
     group = NULL;
@@ -148,6 +149,7 @@ main(int argc, char **argv)
 		    }
 		}
 	    }
+	    nrofrungroups = i;
 	    group = NULL;
 	    break;			
 	case 'x':		/* exclude nodes, w overrides this */

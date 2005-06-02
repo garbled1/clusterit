@@ -72,6 +72,7 @@ int x_error_handler __P((Display *, XErrorEvent *));
 
 /* globals */
 int debug, errorflag, gotsigint, gotsigterm, exclusion, grouping;
+int nrofrungroups;
 node_t *nodelink;
 group_t *grouplist;
 char **rungroup;
@@ -114,6 +115,7 @@ main(int argc, char **argv)
     someflag = showflag = fanflag = 0;
     exclusion = debug = errorflag = 0;
     gotsigint = gotsigterm = grouping = 0;
+    nrofrungroups = 0;
     fanout = DEFAULT_FANOUT;
     nodename = NULL;
     username = NULL;
@@ -180,6 +182,7 @@ main(int argc, char **argv)
 		    }
 		}
 	    }
+	    nrofrungroups = i;
 	    group = NULL;
 	    break;			
 	case 'x':		/* exclude nodes, w overrides this */

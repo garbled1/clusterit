@@ -53,7 +53,7 @@ void _log_bailout(int line, char *file);
 
 /* globals */
 
-int debug, exclusion, grouping;
+int debug, exclusion, grouping, nrofrungroups;
 int errorflag, iportnum, oportnum;
 char **rungroup;
 char **lumplist;
@@ -79,6 +79,7 @@ main(int argc, char **argv)
     someflag = 0;
     showflag = 0;
     exclusion = 0;
+    nrofrungroups = 0;
     debug = 0;
     errorflag = 0;
     allflag = 0;

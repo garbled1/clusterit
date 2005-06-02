@@ -57,7 +57,7 @@ void serial_copy(char *rcp, char *args, char *username, char *source_file,
 char **lumplist;
 char **rungroup;
 char *progname;
-int fanout, concurrent, quiet, debug, grouping, exclusion;
+int fanout, concurrent, quiet, debug, grouping, exclusion, nrofrungroups;
 node_t *nodelink;
 group_t *grouplist;
 
@@ -86,6 +86,7 @@ main(int argc, char **argv)
     recurse = 0;
     exclusion = 0;
     grouping = 0;
+    nrofrungroups = 0;
     username = NULL;
     group = NULL;
     nodeptr = NULL;
@@ -152,6 +153,7 @@ main(int argc, char **argv)
 		    }
 		}
 	    }
+	    nrofrungroups = i;
 	    group = NULL;
 	    break;
 	case 'x':		/* exclude nodes, w overrides this */

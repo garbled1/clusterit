@@ -55,6 +55,7 @@ __RCSID("$Id$");
 
 /* globals */
 int debug, errorflag, exclusion, grouping, iportnum, oportnum;
+int nrofrungroups;
 group_t *grouplist;
 node_t *nodelink;
 char **rungroup;
@@ -87,7 +88,7 @@ main(int argc, char **argv)
 
     someflag = showflag = fanflag = 0;
     exclusion = debug = 0;
-    iportnum = oportnum = 0;
+    iportnum = oportnum = nrofrungroups = 0;
     fanout = DEFAULT_FANOUT;
     nodename = NULL;
     username = NULL;
@@ -150,6 +151,7 @@ main(int argc, char **argv)
 		    }
 		}
 	    }
+	    nrofrungroups = i;
 	    group = NULL;
 	    break;			
 	case 'x':		/* exclude nodes, w overrides this */
