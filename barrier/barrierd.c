@@ -67,8 +67,15 @@ main(int argc, char **argv)
     extern char *optarg;
 
     int ch;
+    char *p, *q;
 	
     barrier_port = 0;
+    progname = p = q = strdup(argv[0]);
+    while (progname != NULL) {
+	q = progname;
+	progname = (char *)strsep(&p, "/");
+    }
+    progname = q;
 
 #if defined(__linux__)
     while ((ch = getopt(argc, argv, "+?p:")) != -1)

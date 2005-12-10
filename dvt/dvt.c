@@ -130,12 +130,12 @@ main(int argc, char **argv)
     if (exclude == NULL)
 	bailout();
 
-    progname = p = q = argv[0];
+    progname = p = q = strdup(argv[0]);
     while (progname != NULL) {
 	q = progname;
 	progname = (char *)strsep(&p, "/");
     }
-    progname = strdup(q);
+    progname = q;
 
 #if defined(__linux__)
     while ((ch = getopt(argc, argv, "+?deiqf:g:l:w:x:")) != -1)

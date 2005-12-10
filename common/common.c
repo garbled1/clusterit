@@ -118,7 +118,7 @@ int
 parse_cluster(char **exclude)
 {
     FILE *fd;
-    char *clusterfile, *p, *nodename;
+    char *clusterfile, *p, *nodename, *q;
     int i, j, g, fail, gfail, lumping, n, ging;
     char buf[MAXBUF];
     extern int errno;
@@ -176,6 +176,13 @@ parse_cluster(char **exclude)
 		    grouplist[g].name = strdup(p);
 		    grouplist[g].numlump = 0;
 		}
+		/* kill trailing whitespace */
+		q = grouplist[g].name;
+		q += strlen(grouplist[g].name)-1;
+		while (isspace(*q))
+		    *q--;
+		*q++;
+		*q = '\0';
 		g++;
 	    } else if (ging && ((strstr(p, "GROUP") != NULL) ||
 			   (strstr(p, "LUMP") != NULL)))

@@ -63,7 +63,7 @@ main(int argc, char **argv)
 {
     extern char *optarg;
 
-    char *key;
+    char *key, *p, *q;
     int nodes, ch, code;
 	
     barrier_port = BARRIER_SOCK;
@@ -71,6 +71,13 @@ main(int argc, char **argv)
     quietflag = 1;
     key = NULL;
     nodes = 0;
+
+    progname = p = q = strdup(argv[0]);
+    while (progname != NULL) {
+	q = progname;
+	progname = (char *)strsep(&p, "/");
+    }
+    progname = q;
 
 #if defined(__linux__)
     while ((ch = getopt(argc, argv, "+?dh:k:p:s:")) != -1)

@@ -102,12 +102,12 @@ main(int argc, char *argv[])
     if (exclude == NULL)
 	bailout();
 
-    progname = p = q = argv[0];
+    progname = p = q = strdup(argv[0]);
     while (progname != NULL) {
 	q = progname;
 	progname = (char *)strsep(&p, "/");
     }
-    progname = strdup(q);
+    progname = q;
 #if defined(__linux__)
     while ((ch = getopt(argc, argv, "+?deiqtf:g:l:o:p:w:x:")) != -1)
 #else
@@ -464,6 +464,7 @@ do_command(char **argv, int fanout, char *username)
 		    pollret = poll(fds, 2, 5);
 		    gotdata = 0;
 		    if ((fds[0].revents&POLLIN) == POLLIN ||
+			(fds[0].revents&POLLHUP) == POLLHUP ||
 		        (fds[0].revents&POLLPRI) == POLLPRI) {
 		    	cd = fgets(pipebuf, sizeof(pipebuf), fda);
 		    	if (cd != NULL) {
@@ -473,6 +474,7 @@ do_command(char **argv, int fanout, char *username)
 			}
 		    }
 		    if ((fds[1].revents&POLLIN) == POLLIN ||
+			(fds[0].revents&POLLHUP) == POLLHUP ||
 			(fds[1].revents&POLLPRI) == POLLPRI) {
 		    	cd = fgets(pipebuf, sizeof(pipebuf), fd);
 		    	if (errorflag && cd != NULL) {
