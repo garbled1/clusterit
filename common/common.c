@@ -212,6 +212,13 @@ parse_cluster(char **exclude)
 			bailout();
 		    lumplist[n] = strdup(p);
 		}
+		/* trim trailing whitespace */
+		q = lumplist[n];
+		q += strlen(lumplist[n])-1;
+		while (isspace(*q))
+			*q--;
+		*q++;
+		*q = '\0';
 		n++;
 	    } else if (lumping){
 		if ((strstr(p, "GROUP") != NULL) ||
