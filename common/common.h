@@ -39,6 +39,7 @@
 #include <string.h>
 #include <unistd.h>
 #include <errno.h>
+#include <ctype.h>
 #ifdef HAVE_TERMIOS_H
 #include <termios.h>
 #endif /* HAVE_TERMIOS_H */
@@ -47,6 +48,10 @@
 #include <netdb.h>
 #include <time.h>
 #include <sys/time.h>
+
+#ifdef HAVE_UTIL_H
+#include <util.h>
+#endif /* HAVE_UTIL_H */
 
 #ifdef USE_X11
 #include <X11/Xlib.h>

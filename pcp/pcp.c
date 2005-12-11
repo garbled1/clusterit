@@ -274,7 +274,7 @@ void do_copy(char **argv, int recurse, int preserve, char *username)
 	rcp = strdup("rcp");
     if (rcp == NULL)
 	bailout();
-    (void)sprintf(args, " ");
+    (void)snprintf(args, 64, " ");
     if (recurse)
 	strcat(args, "-r ");
     if (preserve)
@@ -345,12 +345,12 @@ paralell_copy(char *rcp, char *args, char *username, char *source_file,
 	    if (fcntl(nodeptr->err.fds[1], F_SETFD, 1) == -1)
 		bailout();
 	    if (username != NULL)
-		(void)sprintf(buf, "%s %s %s %s@%s:%s", rcp, args,
-			      source_file, username, nodeptr->name,
-			      destination_file);
+		(void)snprintf(buf, MAXBUF, "%s %s %s %s@%s:%s", rcp, args,
+			       source_file, username, nodeptr->name,
+			       destination_file);
 	    else
-		(void)sprintf(buf, "%s %s %s %s:%s", rcp, args, source_file,
-			      nodeptr->name, destination_file);
+		(void)snprintf(buf, MAXBUF, "%s %s %s %s:%s", rcp, args,
+			       source_file, nodeptr->name, destination_file);
 	    if (debug)
 		printf("Running command: %s\n", buf);
 	    nodeptr->childpid = fork();
@@ -453,11 +453,12 @@ serial_copy(char *rcp, char *args, char *username, char *source_file,
 
     for (nodeptr=nodelink; nodeptr != NULL; nodeptr = nodeptr->next) {
 	if (username != NULL)
-	    (void)sprintf(buf, "%s %s %s %s@%s:%s", rcp, args, source_file,
-			  username, nodeptr->name, destination_file);
+	    (void)snprintf(buf, MAXBUF, "%s %s %s %s@%s:%s", rcp, args,
+			   source_file, username, nodeptr->name,
+			   destination_file);
 	else
-	    (void)sprintf(buf, "%s %s %s %s:%s", rcp, args, source_file,
-			  nodeptr->name, destination_file);
+	    (void)snprintf(buf, MAXBUF, "%s %s %s %s:%s", rcp, args,
+			   source_file, nodeptr->name, destination_file);
 	command = strdup(buf);
 	if (debug)
 	    printf("Running command: %s\n", buf);

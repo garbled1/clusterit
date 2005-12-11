@@ -175,7 +175,7 @@ int make_barrier(char *key, int nodes)
     }
     if (!quietflag)
 	(void)printf("Barrier syncing with token: %s\n", key);
-    (void)sprintf(message, "%s %d", key, nodes);
+    (void)snprintf(message, 256, "%s %d", key, nodes);
     write_to_server(sock, message);
     return(read(sock, &p, 6));
 }

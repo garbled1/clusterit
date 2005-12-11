@@ -540,9 +540,9 @@ do_command(int fanout, char *username)
 	    if (close(nodeptr->err.fds[0]) != 0)
 		bailout();
 	    if (username != NULL)
-		(void)sprintf(buf, "%s@%s", username, nodeptr->name);
+		(void)snprintf(buf, MAXBUF, "%s@%s", username, nodeptr->name);
 	    else
-		(void)sprintf(buf, "%s", nodeptr->name);
+		(void)snprintf(buf, MAXBUF, "%s", nodeptr->name);
 	    if (debug)
 		(void)printf("%s %s\n", rsh, buf);
 	    execlp(rsh, rsh, buf, (char *)0);
