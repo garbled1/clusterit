@@ -7,8 +7,6 @@ Break apart do_command in dsh.c to something sane.
 
 make dshbak more useful.  The IBM format is nasty.
 
-pdf could probably use a little work.
-
 COMPLETED
 ---------
 
