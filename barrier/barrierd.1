@@ -37,6 +37,7 @@
 .Nd syncronize a process on a number of machines.
 .Sh SYNOPSIS
 .Nm
+.Op Fl v
 .Op Fl p Ar port
 .Sh DESCRIPTION
 The 
@@ -45,6 +46,8 @@ daemon runs on a host, and accepts barrier connections from the client
 program barrier.  It handles the connections and syncronization of 
 various barriers being set up and taken down across the cluster.
 .Bl -tag -width www
+.It Fl v
+Prints the version of ClusterIt to the stdout, and exits.
 .It Fl p
 Specifies a port number for the
 .Nm

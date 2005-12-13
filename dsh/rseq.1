@@ -37,7 +37,7 @@
 .Nd run a command on a cluster in sequence
 .Sh SYNOPSIS
 .Nm
-.Op Fl aeiq
+.Op Fl aeiqv
 .Op Fl g Ar rungroup1,...,rungroupN
 .Op Fl l Ar username
 .Op Fl w Ar node1,...,nodeN
@@ -78,6 +78,8 @@ option.
 The
 .Fl q
 option does not issue any commands, but displays information about the cluster.
+.It Fl v
+Prints the version of ClusterIt to the stdout, and exits.
 .It Fl g
 If the
 .Fl g

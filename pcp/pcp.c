@@ -72,6 +72,7 @@ main(int argc, char **argv)
 {
     extern char *optarg;
     extern int optind;
+    extern char *version;
 
     int someflag, ch, i, preserve, recurse;
     char *p, *q, *nodename, *username, *group;
@@ -107,9 +108,9 @@ main(int argc, char **argv)
     progname = q;
 
 #if defined(__linux__)
-    while ((ch = getopt(argc, argv, "+?cdeprf:g:l:w:x:")) != -1)
+    while ((ch = getopt(argc, argv, "+?cdeprf:g:l:vw:x:")) != -1)
 #else
-    while ((ch = getopt(argc, argv, "?cdeprf:g:l:w:x:")) != -1)
+    while ((ch = getopt(argc, argv, "?cdeprf:g:l:vw:x:")) != -1)
 #endif
 	switch (ch) {
 	case 'c':		/* set concurrent mode */
@@ -186,9 +187,13 @@ main(int argc, char **argv)
 		    (void)nodealloc(nodename);
 	    }
 	    break;
+	case 'v':
+	    (void)printf("%s: %s\n", progname, version);
+	    exit(EXIT_SUCCESS);
+	    break;
 	case '?':
 	    (void)fprintf(stderr,
-		"usage: %s [-cepr] [-f fanout] [-g rungroup1,...,rungroupN] "
+		"usage: %s [-ceprv] [-f fanout] [-g rungroup1,...,rungroupN] "
 		"[-l username] [-x node1,...,nodeN] [-w node1,..,nodeN] "
 		"source_file1 [source_file2 ... source_fileN] "
 		"[desitination_file]\n", progname);

@@ -37,7 +37,7 @@
 .Nd run a command on a cluster of machines
 .Sh SYNOPSIS
 .Nm
-.Op Fl eiqt
+.Op Fl eiqtv
 .Op Fl f Ar fanout
 .Op Fl g Ar rungroup1,...,rungroupN
 .Op Fl l Ar username
@@ -96,6 +96,8 @@ fails to guess your port correctly, you may use the
 argument to set the remote port number.  If the
 .Ev RCMD_TEST
 environment variable exists, the testing will automatically take place.
+.It Fl v
+Prints the version of ClusterIt to the stdout, and exits.
 .It Fl f
 If the
 .Fl f

@@ -37,7 +37,7 @@
 .Nd simple command scheduling daemon for remote execution
 .Sh SYNOPSIS
 .Nm
-.Op Fl iq
+.Op Fl iqv
 .Op Fl f Ar fanout
 .Op Fl g Ar rungroup1,...,rungroupN
 .Op Fl l Ar username
@@ -86,6 +86,8 @@ The
 .Fl q
 option does not issue any commands, but displays information about the 
 cluster, and the fanout groupings.
+.It Fl v
+Prints the version of ClusterIt to the stdout, and exits.
 .It Fl f
 If the
 .Fl f

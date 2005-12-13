@@ -39,7 +39,7 @@
 .Nd copy a file to a cluster of machines
 .Sh SYNOPSIS
 .Nm
-.Op Fl cepr
+.Op Fl ceprv
 .Op Fl f Ar fanout
 .Op Fl g Ar rungroup1,...,rungroupN
 .Op Fl w Ar node1,...,nodeN
@@ -98,6 +98,8 @@ If any of the source files are directories,
 .Nm
 copies each subtree rooted at that name; in this case
 the destination must be a directory.
+.It Fl v
+Prints the version of ClusterIt to the stdout, and exits.
 .It Fl f
 If the
 .Fl f

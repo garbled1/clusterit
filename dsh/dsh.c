@@ -75,6 +75,7 @@ main(int argc, char *argv[])
 {
     extern char	*optarg;
     extern int	optind;
+    extern char *version;
 
     int someflag, ch, i, fanout, showflag, fanflag;
     char *p, *q, *group, *nodename, *username;
@@ -108,9 +109,9 @@ main(int argc, char *argv[])
     }
     progname = q;
 #if defined(__linux__)
-    while ((ch = getopt(argc, argv, "+?deiqtf:g:l:o:p:w:x:")) != -1)
+    while ((ch = getopt(argc, argv, "+?deiqtf:g:l:o:p:vw:x:")) != -1)
 #else
-    while ((ch = getopt(argc, argv, "?deiqtf:g:l:o:p:w:x:")) != -1)
+    while ((ch = getopt(argc, argv, "?deiqtf:g:l:o:p:vw:x:")) != -1)
 #endif
 	switch (ch) {
 	case 'd':		/* we want to debug dsh (hidden)*/
@@ -164,6 +165,10 @@ main(int argc, char *argv[])
 	    nrofrungroups = i;
 	    group = NULL;
 	    break;			
+	case 'v':
+	    (void)printf("%s: %s\n", progname, version);
+	    exit(EXIT_SUCCESS);
+	    break;
 	case 'x':		/* exclude nodes, w overrides this */
 	    exclusion = 1;
 	    i = 0;
@@ -195,7 +200,7 @@ main(int argc, char *argv[])
 	    break;
 	case '?':		/* you blew it */
 	    (void)fprintf(stderr,
-	        "usage: %s [-eiqt] [-f fanout] [-p portnum] [-o timeout]"
+	        "usage: %s [-eiqtv] [-f fanout] [-p portnum] [-o timeout]"
 		"[-g rungroup1,...,rungroupN] [-l username] "
 		"[-x node1,...,nodeN] [-w node1,..,nodeN] "
 		"[command ...]\n", progname);

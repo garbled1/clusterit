@@ -65,6 +65,7 @@ int
 main(int argc, char **argv)
 {
     extern char *optarg;
+    extern char *version;
 
     int ch;
     char *p, *q;
@@ -78,16 +79,20 @@ main(int argc, char **argv)
     progname = q;
 
 #if defined(__linux__)
-    while ((ch = getopt(argc, argv, "+?p:")) != -1)
+    while ((ch = getopt(argc, argv, "+?p:v")) != -1)
 #else
-    while ((ch = getopt(argc, argv, "?p:")) != -1)
+    while ((ch = getopt(argc, argv, "?p:v")) != -1)
 #endif
 	switch (ch) {
 	case 'p':
 	    barrier_port = atoi(optarg);
 	    break;
+	case 'v':
+	    (void)printf("%s: %s\n", progname, version);
+	    exit(EXIT_SUCCESS);
+	    break;
 	case '?':
-	    (void)fprintf(stderr, "usage: barrierd [-p port]\n");
+	    (void)fprintf(stderr, "usage: barrierd [-v] [-p port]\n");
 	    exit(EXIT_FAILURE);
 	    break;
 	default:

@@ -74,6 +74,7 @@ main(int argc, char **argv)
 
     extern char *optarg;
     extern int optind;
+    extern char *version;
 
     iportnum = oportnum = 0;
     someflag = 0;
@@ -99,9 +100,9 @@ main(int argc, char **argv)
     progname = q;
 
 #if defined(__linux__)
-    while ((ch = getopt(argc, argv, "+?adeil:k:p:")) != -1)
+    while ((ch = getopt(argc, argv, "+?adeil:k:p:v")) != -1)
 #else
-    while ((ch = getopt(argc, argv, "?adeil:k:p:")) != -1)
+    while ((ch = getopt(argc, argv, "?adeil:k:p:v")) != -1)
 #endif
 	switch (ch) {
 	case 'a':		/* set the allrun flag */
@@ -128,10 +129,14 @@ main(int argc, char **argv)
 	case 'h':		/* host to connect to jsd on */
 	    jsd_host = strdup(optarg);
 	    break;			
+	case 'v':
+	    (void)printf("%s: %s\n", progname, version);
+	    exit(EXIT_SUCCESS);
+	    break;
 	case '?':		/* you blew it */
 	    (void)fprintf(stderr,
-			  "usage: %s [-aei] [-l username] [-p port] [-o port] "
-			  "[-h hostname] [command ...]\n", progname);
+			  "usage: %s [-aeiv] [-l username] [-p port] [-o port]"
+			  " [-h hostname] [command ...]\n", progname);
 	    exit(EXIT_FAILURE);
 	    break;
 	default:

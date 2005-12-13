@@ -62,6 +62,7 @@ int
 main(int argc, char **argv)
 {
     extern char *optarg;
+    extern char *version;
 
     char *key, *p, *q;
     int nodes, ch, code;
@@ -80,9 +81,9 @@ main(int argc, char **argv)
     progname = q;
 
 #if defined(__linux__)
-    while ((ch = getopt(argc, argv, "+?dh:k:p:s:")) != -1)
+    while ((ch = getopt(argc, argv, "+?dh:k:p:s:v")) != -1)
 #else
-    while ((ch = getopt(argc, argv, "?dh:k:p:s:")) != -1)
+    while ((ch = getopt(argc, argv, "?dh:k:p:s:v")) != -1)
 #endif
 	switch (ch) {
 	case 'q':
@@ -101,9 +102,13 @@ main(int argc, char **argv)
 	    nodes = atoi(optarg);
 	    break;
 	case '?':
-	    (void)fprintf(stderr, "usage: barrier [-q] [-h barrier_host]"
+	    (void)fprintf(stderr, "usage: barrier [-qv] [-h barrier_host]"
 			  " [-k key] [-p port] -s cluster_size\n");
 	    exit(EXIT_FAILURE);
+	    break;
+	case 'v':
+	    (void)printf("%s: %s\n", progname, version);
+	    exit(EXIT_SUCCESS);
 	    break;
 	default:
 	    break;

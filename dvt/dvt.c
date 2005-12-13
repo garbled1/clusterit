@@ -105,6 +105,7 @@ main(int argc, char **argv)
 {
     extern char	*optarg;
     extern int	optind;
+    extern char *version;
 
     int someflag, ch, i, fanout, showflag, fanflag;
     char *p, *q, *group, *nodename, *username;
@@ -138,9 +139,9 @@ main(int argc, char **argv)
     progname = q;
 
 #if defined(__linux__)
-    while ((ch = getopt(argc, argv, "+?deiqf:g:l:w:x:")) != -1)
+    while ((ch = getopt(argc, argv, "+?deiqf:g:l:vw:x:")) != -1)
 #else
-    while ((ch = getopt(argc, argv, "?deiqf:g:l:w:x:")) != -1)
+    while ((ch = getopt(argc, argv, "?deiqf:g:l:vw:x:")) != -1)
 #endif
 	switch (ch) {
 	case 'd':		/* we want to debug dvt (hidden)*/
@@ -214,9 +215,13 @@ main(int argc, char **argv)
 		    (void)nodealloc(nodename);
 	    }
 	    break;
+	case 'v':
+	    (void)printf("%s: %s\n", progname, version);
+	    exit(EXIT_SUCCESS);
+	    break;
 	case '?':		/* you blew it */
 	    (void)fprintf(stderr,
-		"usage: %s [-eiq] [-f fanout] [-g rungroup1,...,rungroupN] "
+		"usage: %s [-eiqv] [-f fanout] [-g rungroup1,...,rungroupN] "
 		"[-l username] [-x node1,...,nodeN] [-w node1,..,nodeN]\n",
 		progname);
 	    return(EXIT_FAILURE);
