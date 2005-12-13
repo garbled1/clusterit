@@ -229,7 +229,7 @@ parse_cluster(char **exclude)
 		    for (j = 0; j < g; j++)
 			if (strcmp(p, grouplist[j].name) == 0) {
 			    if (grouplist[j].numlump == 0)
-			        grouplist[j].lump = malloc(sizeof(int)*2);
+			        grouplist[j].lump = calloc(2, sizeof(int));
 			    else
 				grouplist[j].lump =
 				    realloc(grouplist[j].lump, sizeof(int)*grouplist[j].numlump+2);
@@ -302,7 +302,7 @@ nodealloc(char *nodename)
     struct node_data *nodeptr, *nodex;
 
     if (nodelink == NULL) {
-	nodelink = malloc((size_t)sizeof(node_t));
+	nodelink = calloc(1, sizeof(node_t));
 	nodelink->name = strdup(nodename);
 	nodelink->group = 0;
 	nodelink->err.fds[0] = 0;
@@ -318,7 +318,7 @@ nodealloc(char *nodename)
 #endif
 	return(nodelink);
     }
-    nodex = malloc(sizeof(node_t));
+    nodex = calloc(1, sizeof(node_t));
     if (NULL == nodex)
 	bailout();
 	

@@ -93,10 +93,10 @@ main(int argc, char **argv)
     nodeptr = NULL;
     nodelink = NULL;
 
-    rungroup = malloc(sizeof(char **) * GROUP_MALLOC);
+    rungroup = calloc(GROUP_MALLOC, sizeof(char **));
     if (rungroup == NULL)
 	bailout();
-    exclude = malloc(sizeof(char **) * GROUP_MALLOC);
+    exclude = calloc(GROUP_MALLOC, sizeof(char **));
     if (exclude == NULL)
 	bailout();
 

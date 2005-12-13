@@ -86,7 +86,7 @@ read_from_client(int filedes, char **j)
     int nbytes;
     char *buffer;
 
-    buffer = (char *)malloc( MAXMSG * sizeof(char));
+    buffer = (char *)calloc(MAXMSG, sizeof(char));
 
     nbytes = read(filedes, buffer, MAXMSG);
     if (nbytes < 0)
