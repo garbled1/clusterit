@@ -33,8 +33,8 @@ possible overflow on a huge command.
 Fix a bug noted by Jot Powers, where trailing whitespace on a GROUP or LUMP
 entry would cause dsh -g to not match it.
 
-Fix a bug noted by   where linux machines often recieved truncated output from
-the child ssh/rsh process.
+Fix a bug noted by John Bales  where linux machines often recieved truncated 
+output from the child ssh/rsh process.
 
 Fix bug where all the programs would mangle argv[0] for ps.
 
