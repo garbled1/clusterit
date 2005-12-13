@@ -1,5 +1,9 @@
 $Id$
 
+Add a -v option to all programs to tell the user what version of
+ClusterIt they are running.  CVS will allways have _BETA tagged on the end,
+and it will be removed at release.
+
 Add RVT_CMD_ARGS to dvt, to allow passing of args to rvt
 
 Incorporate patches from debian xvt package into rvt:    
