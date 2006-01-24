@@ -241,8 +241,7 @@ void
 do_command(char **argv, int allrun, char *username)
 {
     FILE *fd, *fda, *in;
-    char buf[MAXBUF];
-    char pipebuf[2048];
+    char buf[MAXBUF], cbuf[MAXBUF], pipebuf[2048];
     int status, i, piping, pollret, nrofargs, arg;
     char *p, *command, *rsh, *cd, **q, *rshargs, **cmd;
     node_t *nodeptr;
@@ -282,7 +281,7 @@ do_command(char **argv, int allrun, char *username)
 	in = fdopen(STDIN_FILENO, "r");
 
 	/* start reading stuff from stdin and process */
-	command = fgets(buf, sizeof(buf), in);
+	command = fgets(cbuf, sizeof(cbuf), in);
 	if (command != NULL)
 	    if (strcmp(command,"\n") == 0)
 		command = NULL;
@@ -415,7 +414,7 @@ do_command(char **argv, int allrun, char *username)
 	if (piping) {
 	    if (isatty(STDIN_FILENO) && piping)
 		(void)printf("%s>", progname);
-	    command = fgets(buf, sizeof(buf), in);
+	    command = fgets(cbuf, sizeof(cbuf), in);
 	    if (command != NULL)
 		if (strcmp(command,"\n") == 0)
 		    command = NULL;

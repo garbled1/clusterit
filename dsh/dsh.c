@@ -279,8 +279,7 @@ do_command(char **argv, int fanout, char *username)
 {
     struct sigaction signaler;
     FILE *fd, *fda, *in;
-    char buf[MAXBUF];
-    char pipebuf[2048];
+    char buf[MAXBUF], cbuf[MAXBUF], pipebuf[2048];
     int status, i, j, n, g, piping, pollret, nrofargs, arg;
     size_t maxnodelen;
     char *p, **q, *command, *rsh, *cd, *rshargs, **cmd;
@@ -334,7 +333,7 @@ do_command(char **argv, int fanout, char *username)
 	    (void)printf("%s>", progname);
 	in = fdopen(STDIN_FILENO, "r");
 	/* start reading stuff from stdin and process */
-	command = fgets(buf, sizeof(buf), in);
+	command = fgets(cbuf, sizeof(cbuf), in);
 	if (command != NULL)
 	    if (strcmp(command,"\n") == 0)
 		command = NULL;
@@ -526,7 +525,7 @@ do_command(char **argv, int fanout, char *username)
 	    /* yes, this is code repetition, no need to adjust your monitor */
 	    if (isatty(STDIN_FILENO) && piping)
 		(void)printf("%s>", progname);
-	    command = fgets(buf, sizeof(buf), in);
+	    command = fgets(cbuf, sizeof(cbuf), in);
 	    if (command != NULL)
 		if (strcmp(command,"\n") == 0)
 		    command = NULL;

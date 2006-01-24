@@ -279,8 +279,7 @@ void
 do_command(char **argv, int allrun, char *username)
 {
     FILE *fd, *fda, *in;
-    char buf[MAXBUF];
-    char pipebuf[2048];
+    char buf[MAXBUF], cbuf[MAXBUF], pipebuf[2048];
     int status, piping, pollret, i, nrofargs, arg;
     size_t maxnodelen;
     char *p, *command, *rsh, *cd, **q, *rshargs, **cmd;
@@ -316,7 +315,7 @@ do_command(char **argv, int allrun, char *username)
 	    /* are we a terminal?  then go interactive! */
 	    (void)printf("%s>", progname);
 	in = fdopen(STDIN_FILENO, "r");
-	command = fgets(buf, sizeof(buf), in);
+	command = fgets(cbuf, sizeof(cbuf), in);
 	/* start reading stuff from stdin and process */
 	if (command != NULL)
 	    if (strcmp(command,"\n") == 0)
@@ -444,7 +443,7 @@ do_command(char **argv, int allrun, char *username)
 	    if (isatty(STDIN_FILENO) && piping)
 	    /* yes, this is code repetition, no need to adjust your monitor */
 		(void)printf("%s>", progname);
-	    command = fgets(buf, sizeof(buf), in);
+	    command = fgets(cbuf, sizeof(cbuf), in);
 	    if (command != NULL)
 		if (strcmp(command,"\n") == 0)
 		    command = NULL;
