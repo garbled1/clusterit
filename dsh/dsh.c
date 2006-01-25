@@ -529,6 +529,7 @@ do_command(char **argv, int fanout, char *username)
 	    if (command != NULL)
 		if (strcmp(command,"\n") == 0)
 		    command = NULL;
+	    nodeptr = nodelink;
 	} else
 	    command = NULL;
     } /* while loop */
