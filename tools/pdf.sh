@@ -22,7 +22,7 @@ do
 		-x)
 			xarg=$2; shift; shift;;
 		-m)
-			marg="$2"; shift; shift;;
+			marg=$2; shift; shift;;
 		--)
 			shift; break;;
 	esac
@@ -36,6 +36,9 @@ fi
 if [ -n "$xarg" ]; then
 	dshargs=`echo "$dshargs -x $xarg"`
 fi
+if [ -z "$marg" ]; then
+	marg=0;
+fi
 
 (
 dsh $dshargs 'sh -c "if [ `uname` = "AIX" ]; then df -kI '$flag $*'; elif [ `uname` = "HP-UX" ]; then bdf '$flag $*'; elif [ `uname` = "Linux" ]; then df -Pk '$flag $*'; else df -k '$flag $*'; fi"'
@@ -43,7 +46,7 @@ dsh $dshargs 'sh -c "if [ `uname` = "AIX" ]; then df -kI '$flag $*'; elif [ `una
 echo 'Node      Filesystem            1K-Blks     Used    Avail  Cap Mounted On'
 while read node fs blocks used avail capacity mount; do \
 	capacity=`echo "$capacity" | sed -e 's/\%//'`;
-	if [ "$capacity" -gt "$marg" -a 'test -n "$marg"' ]; then \
+	if [ $capacity -gt $marg ]; then \
 		printf "%-8s: %-19.19s %9d%9d%9d %3.3s%% %-17.17s\n" $node $fs $blocks $used $avail $capacity $mount; \
 	fi \
 done
