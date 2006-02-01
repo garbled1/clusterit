@@ -1,5 +1,7 @@
 $Id$
 
+* Release 2.4 *
+
 Fix jsd to work properly on Linux.
 
 Fix stdin command mode on all the utilities.
