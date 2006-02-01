@@ -1,5 +1,13 @@
 $Id$
 
+Fix jsd to work properly on Linux.
+
+Fix stdin command mode on all the utilities.
+
+Make jsh and jsd more robust.  Keep jsd from permanently losing it's nodes.
+
+Fix pdf to work on Linux.
+
 Add a -v option to all programs to tell the user what version of
 ClusterIt they are running.  CVS will allways have _BETA tagged on the end,
 and it will be removed at release.
