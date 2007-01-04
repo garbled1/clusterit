@@ -1,5 +1,10 @@
 $Id$
 
+Add -s option to dsh.  This adds the ability to copy a script to a remote
+machine, execute it, and delete it, all in a single operation.
+
+Add RCP_CMD_ARGS processing to pcp.
+
 * Release 2.4 *
 
 Fix jsd to work properly on Linux.
