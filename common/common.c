@@ -45,7 +45,7 @@ __COPYRIGHT(
 __RCSID("$Id$");
 #endif
 
-char *version = "ClusterIt Version 2.4";
+char *version = "ClusterIt Version 2.4.1_BETA";
 
 #ifdef CLUSTERS
 /*
