@@ -111,6 +111,8 @@ node_t *nodealloc(char *nodename);
 int test_node_connection(int rshport, int timeout, node_t *nodeptr);
 char **parse_rcmd(char *rcmd_env, char *args_env, int *nrofargs);
 char *default_rcmd(char *rcmd_env);
+int get_rshport(int testflag, int rshport, char *rcmd_env);
+char *build_rshstring(char **rsh, int nrofargs);
 
 extern char **lumplist;
 extern char **rungroup;

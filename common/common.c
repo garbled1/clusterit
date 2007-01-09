@@ -49,6 +49,57 @@ char *version = "ClusterIt Version 2.4.1_BETA";
 
 #ifdef CLUSTERS
 
+/* convenience:  Set the rshport based on RCMD_CMD */
+int
+get_rshport(int testflag, int rshport, char *rcmd_env)
+{
+	int port;
+
+	/* we need to find or guess the port number */
+	if (testflag && rshport == 0) {
+		if (!getenv(rcmd_env))
+			port = TEST_PORT;
+		else if (strstr(getenv(rcmd_env), "ssh") != NULL)
+			port = 22;
+		else if (strstr(getenv(rcmd_env), "rsh") != NULL)
+			port = 514;
+		else {
+			(void)fprintf(stderr,
+			    "-t argument given, but port number to test "
+			    "could not be guessed.  Please set the RCMD_PORT "
+			    "environment variable to the portnumber of the "
+			    "protocol you are using, or supply it with the "
+			    "-p argument to dsh.");
+			exit(EXIT_FAILURE);
+		}
+		if (debug)
+			printf("Test port: %d\n", port);
+	}
+	return(port);
+}
+
+/* Convenience:  Build the rshstring */
+char *
+build_rshstring(char **rsh, int nrofargs)
+{
+	int g, i;
+	char *rshstring;
+
+	/* build the rshstring (for debug printf and dsh -s) */
+	for (g=0, i=0; i < nrofargs-2; i++) {
+		if (rsh[i] != NULL)
+			g += strlen(rsh[i]);
+	}
+	rshstring = (char *)malloc(sizeof(char) * (g+nrofargs));
+	sprintf(rshstring, "%s", rsh[0]);
+	for (i=1; i < nrofargs-2; i++) {
+		if (rsh[i] != NULL)
+			sprintf(rshstring, "%s %s", rshstring, rsh[i]);
+	}
+	return(rshstring);
+}
+
+
 /*
  * Return the default RCMD_CMD, based on the env var and dsh setup
  */
