@@ -286,7 +286,7 @@ check_seq(void)
     for (nodeptr = nodelink; (nodeptr && i < g);
 	 nodeptr = nodeptr->next)
 	i++;
-    if (nodeptr->next == NULL)
+    if (nodeptr == NULL || nodeptr->next == NULL)
 	return(nodelink);
     return(nodeptr->next);
 }
