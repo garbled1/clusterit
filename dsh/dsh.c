@@ -104,12 +104,8 @@ main(int argc, char *argv[])
     if (exclude == NULL)
 	bailout();
 
-    progname = p = q = strdup(argv[0]);
-    while (progname != NULL) {
-	q = progname;
-	progname = (char *)strsep(&p, "/");
-    }
-    progname = q;
+    progname = strdup(basename(argv[0]));
+
 #if defined(__linux__)
     while ((ch = getopt(argc, argv, "+?deiqtf:g:l:o:p:s:vw:x:")) != -1)
 #else
@@ -206,15 +202,15 @@ main(int argc, char *argv[])
 	    break;
 	case '?':		/* you blew it */
 	    (void)fprintf(stderr,
-	        "usage:\n%s [-eiqtv] [-f fanout] [-p portnum] [-o timeout]"
+	        "usage:\n%s [-eiqtv] [-f fanout] [-p portnum] [-o timeout] "
 		"[-g rungroup1,...,rungroupN]\n"
-		"[-l username] [-x node1,...,nodeN] [-w node1,..,nodeN] "
+		"    [-l username] [-x node1,...,nodeN] [-w node1,..,nodeN] "
 		"[command ...]\n", progname);
 	    (void)fprintf(stderr,
-		"%s [-eiqtv] [-f fanout] [-p portnum] [-o timeout]"
+		"%s [-eiqtv] [-f fanout] [-p portnum] [-o timeout] "
 		"[-g rungroup1,...,rungroupN]\n"
-		"[-l username] [-x node1,...,nodeN] [-w node1,..,nodeN]\n"
-	        "-s scriptname [arguments ...]\n", progname);
+		"    [-l username] [-x node1,...,nodeN] [-w node1,..,nodeN]\n"
+	        "    -s scriptname [arguments ...]\n", progname);
 	    return(EXIT_FAILURE);
 	    /*NOTREACHED*/
 	    break;
