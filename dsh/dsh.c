@@ -220,11 +220,6 @@ main(int argc, char *argv[])
     return(EXIT_SUCCESS);
 }
 
-/* IDEA:
-  tar cfp - $myscript | ssh somehost 'mkdir /tmp/foo.$$; cd /tmp/foo.$$; tar xfp -; ./'$myscript'; cd /tmp; rm -rf /tmp/foo.$$'
-
-*/
-
 /* 
  * Do the actual dirty work of the program, now that the arguments
  * have all been parsed out.

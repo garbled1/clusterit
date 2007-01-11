@@ -128,13 +128,19 @@ get_rshport(int testflag, int rshport, char *rcmd_env)
 			port = 22;
 		else if (strstr(getenv(rcmd_env), "rsh") != NULL)
 			port = 514;
+		else if (strstr(getenv(rcmd_env), "scp") != NULL)
+			port = 22;
+		else if (strstr(getenv(rcmd_env), "rcp") != NULL)
+			port = 514;
+		else if (strstr(getenv(rcmd_env), "rlogin") != NULL)
+			port = 513;
 		else {
 			(void)fprintf(stderr,
 			    "-t argument given, but port number to test "
 			    "could not be guessed.  Please set the RCMD_PORT "
 			    "environment variable to the portnumber of the "
 			    "protocol you are using, or supply it with the "
-			    "-p argument to dsh.");
+			    "-p (or -n for pcp) argument.");
 			exit(EXIT_FAILURE);
 		}
 		if (debug)
@@ -155,7 +161,8 @@ build_rshstring(char **rsh, int nrofargs)
 		if (rsh[i] != NULL)
 			g += strlen(rsh[i]);
 	}
-	rshstring = (char *)malloc(sizeof(char) * (g+nrofargs));
+	/* padding of 20 for pcp/etc */
+	rshstring = (char *)malloc(sizeof(char) * (g + nrofargs + 20));
 	sprintf(rshstring, "%s", rsh[0]);
 	for (i=1; i < nrofargs-2; i++) {
 		if (rsh[i] != NULL)
