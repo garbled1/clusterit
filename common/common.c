@@ -140,7 +140,7 @@ get_rshport(int testflag, int rshport, char *rcmd_env)
 			    "could not be guessed.  Please set the RCMD_PORT "
 			    "environment variable to the portnumber of the "
 			    "protocol you are using, or supply it with the "
-			    "-p (or -n for pcp) argument.");
+			    "-p (or -n for pcp) argument.\n");
 			exit(EXIT_FAILURE);
 		}
 		if (debug)

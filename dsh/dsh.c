@@ -231,7 +231,7 @@ do_command(char **argv, int fanout, char *username)
     struct sigaction signaler;
     FILE *fd, *fda, *in;
     char buf[MAXBUF], cbuf[MAXBUF], pipebuf[2048];
-    int status, i, j, n, g, piping, pollret, nrofargs, arg, slen;
+    int status, i, j, n, g, piping, pollret, nrofargs, arg, slen, fdf;
     size_t maxnodelen;
     char *p, **q, *command, **rsh, *cd, **cmd, *rshstring;
     char *scriptbase, *scriptdir;
@@ -347,9 +347,12 @@ do_command(char **argv, int fanout, char *username)
 		     * passing signals to children.
 		     */
 		    (void)setsid();
+#ifndef linux
+		    /* Linux needs stdin open so it gets poll() hangup events*/
 		    if (piping)
 			if (close(STDIN_FILENO) != 0)
 			    bailout();
+#endif
 		    if (dup2(nodeptr->out.fds[1], STDOUT_FILENO) 
 			!= STDOUT_FILENO) 
 			bailout();
@@ -360,6 +363,12 @@ do_command(char **argv, int fanout, char *username)
 			bailout();
 		    if (close(nodeptr->err.fds[0]) != 0)
 			bailout();
+		    /* stdin & stderr non-blocking */
+		    fdf = fcntl(nodeptr->out.fds[0],F_GETFL);
+		    fcntl(nodeptr->out.fds[0], F_SETFL, fdf|O_NONBLOCK);
+		    fdf = fcntl(nodeptr->err.fds[0],F_GETFL);
+		    fcntl(nodeptr->err.fds[0], F_SETFL, fdf|O_NONBLOCK);
+		    
 		    if (username != NULL)
 			(void)snprintf(buf, MAXBUF, "%s@%s", username,
 				       nodeptr->name);
@@ -449,23 +458,21 @@ do_command(char **argv, int fanout, char *username)
 		    if ((fds[0].revents&POLLIN) == POLLIN ||
 			(fds[0].revents&POLLHUP) == POLLHUP ||
 		        (fds[0].revents&POLLPRI) == POLLPRI) {
-		    	cd = fgets(pipebuf, sizeof(pipebuf), fda);
-		    	if (cd != NULL) {
-			    (void)printf("%*s: %s",
-			                 -maxnodelen, nodeptr->name, cd);
+			while ((cd = fgets(pipebuf, sizeof(pipebuf), fda))) {
+			    (void)printf("%*s: %s", -maxnodelen,
+				nodeptr->name, cd);
 			    gotdata++;
 			}
 		    }
 		    if ((fds[1].revents&POLLIN) == POLLIN ||
 			(fds[0].revents&POLLHUP) == POLLHUP ||
 			(fds[1].revents&POLLPRI) == POLLPRI) {
-		    	cd = fgets(pipebuf, sizeof(pipebuf), fd);
-		    	if (errorflag && cd != NULL) {
-			    (void)printf("%*s: %s",
-			                 -maxnodelen, nodeptr->name, cd);
+			while ((cd = fgets(pipebuf, sizeof(pipebuf), fda))) {
+			    if (errorflag) 
+				(void)printf("%*s: %s", -maxnodelen,
+				    nodeptr->name, cd);
 			    gotdata++;
-			} else if (!errorflag && cd != NULL)
-			    gotdata++;
+			}
 		    }
 		    if (!gotdata)
 			if (((fds[0].revents&POLLHUP) == POLLHUP ||
