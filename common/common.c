@@ -543,12 +543,22 @@ nodealloc(char *nodename)
     return(nodex);
 }
 
-int test_node_connection(int rshport, int timeout, node_t *nodeptr)
+void
+alarm_handler(int sig)
+{
+	if (sig == SIGALRM)
+		alarmtime = 1;
+	return;
+}
+
+int
+test_node_connection(int rshport, int timeout, node_t *nodeptr)
 {
     int sock;
     struct sockaddr_in name;
     struct hostent *hostinfo;
     struct itimerval timer;
+    struct sigaction signaler;
     
     /* test if the port exists and is serviceable */
     sock = socket(PF_INET, SOCK_STREAM, 0);
@@ -565,13 +575,21 @@ int test_node_connection(int rshport, int timeout, node_t *nodeptr)
 	return(0);
     }
     name.sin_addr = *(struct in_addr *) hostinfo->h_addr;
+    alarmtime = 0;
     timer.it_interval.tv_sec = 0;
     timer.it_interval.tv_usec = 0;
     timer.it_value.tv_sec = timeout;
     timer.it_value.tv_usec = 0;
+    signaler.sa_handler = alarm_handler;
+    signaler.sa_flags = SA_RESTART;
+    sigaction(SIGALRM, &signaler, NULL);
     setitimer(ITIMER_REAL, &timer, NULL);
     if (connect(sock, (struct sockaddr *)&name,	sizeof(name)) != 0) {
-	fprintf(stderr, "Cannot connect to port %d on %s\n",
+	if (alarmtime)
+	    fprintf(stderr, "Connection timed out to port %d on %s\n",
+		rshport, nodeptr->name);
+	else
+	    fprintf(stderr, "Cannot connect to port %d on %s\n",
 		rshport, nodeptr->name);
 	close(sock);
 	timer.it_value.tv_sec = 0;
