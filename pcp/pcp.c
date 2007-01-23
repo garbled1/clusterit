@@ -364,9 +364,9 @@ paralell_copy(char *rcp, int nrof, char *username, char *source_file,
 		if (close(nodeptr->err.fds[0]) != 0)
 		    bailout();
 		/* stdin & stderr non-blocking */
-		fdf = fcntl(nodeptr->out.fds[0],F_GETFL);
+		fdf = fcntl(nodeptr->out.fds[0], F_GETFL);
 		fcntl(nodeptr->out.fds[0], F_SETFL, fdf|O_NONBLOCK);
-		fdf = fcntl(nodeptr->err.fds[0],F_GETFL);
+		fdf = fcntl(nodeptr->err.fds[0], F_GETFL);
 		fcntl(nodeptr->err.fds[0], F_SETFL, fdf|O_NONBLOCK);
 		
 		if (testflag && rshport > 0 && porttimeout > 0)

@@ -88,6 +88,7 @@ const char *window_name = "dvt";
 const char *icon_name = "dvt";
 char *display_name = NULL;
 Pixmap up_pic, down_pic;
+volatile sig_atomic_t alarmtime; /* unused in dvt */
 
 int (*old_handler)(Display *, XErrorEvent *);
 

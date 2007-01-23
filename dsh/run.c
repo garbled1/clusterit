@@ -320,9 +320,9 @@ do_command(char **argv, int allrun, char *username)
 	    if (close(nodeptr->err.fds[0]) != 0)
 		bailout();
 	    /* stdin & stderr non-blocking */
-	    fdf = fcntl(nodeptr->out.fds[0],F_GETFL);
+	    fdf = fcntl(nodeptr->out.fds[0], F_GETFL);
 	    fcntl(nodeptr->out.fds[0], F_SETFL, fdf|O_NONBLOCK);
-	    fdf = fcntl(nodeptr->err.fds[0],F_GETFL);
+	    fdf = fcntl(nodeptr->err.fds[0], F_GETFL);
 	    fcntl(nodeptr->err.fds[0], F_SETFL, fdf|O_NONBLOCK);
 	    
 	    if (username != NULL)
