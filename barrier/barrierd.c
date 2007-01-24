@@ -39,6 +39,7 @@
 #include <strings.h>
 #include <syslog.h>
 #include <stdarg.h>
+#include <libgen.h>
 #include "../common/sockcommon.h"
 
 #if !defined(lint) && defined(__NetBSD__)
@@ -68,15 +69,9 @@ main(int argc, char **argv)
     extern char *version;
 
     int ch;
-    char *p, *q;
 	
     barrier_port = 0;
-    progname = p = q = strdup(argv[0]);
-    while (progname != NULL) {
-	q = progname;
-	progname = (char *)strsep(&p, "/");
-    }
-    progname = q;
+    progname = strdup(basename(argv[0]));
 
 #if defined(__linux__)
     while ((ch = getopt(argc, argv, "+?p:v")) != -1)

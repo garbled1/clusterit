@@ -39,6 +39,7 @@
 #include <netdb.h>
 #include <stdio.h>
 #include <string.h>
+#include <libgen.h>
 
 #include "../common/common.h"
 #include "../common/sockcommon.h"
@@ -64,7 +65,7 @@ main(int argc, char **argv)
     extern char *optarg;
     extern char *version;
 
-    char *key, *p, *q;
+    char *key;
     int nodes, ch, code;
 	
     barrier_port = BARRIER_SOCK;
@@ -73,12 +74,7 @@ main(int argc, char **argv)
     key = NULL;
     nodes = 0;
 
-    progname = p = q = strdup(argv[0]);
-    while (progname != NULL) {
-	q = progname;
-	progname = (char *)strsep(&p, "/");
-    }
-    progname = q;
+    progname = strdup(basename(argv[0]));
 
 #if defined(__linux__)
     while ((ch = getopt(argc, argv, "+?dh:k:p:s:v")) != -1)
