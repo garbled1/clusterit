@@ -376,7 +376,7 @@ do_command(int fanout, char *username)
     struct sigaction signaler;
     FILE *fd, *in;
     char pipebuf[2048], buf[MAXBUF];
-    int count, status, i, j, g, l, piping, nrofargs, arg;
+    int count, status, i, j, g, l, nrofargs, arg;
     size_t maxnodelen;
     char **rsh, *cd, *rshstring, **cmd;
     node_t *nodeptr, *nodehold;
@@ -390,7 +390,6 @@ do_command(int fanout, char *username)
 
     maxnodelen = 0;
     j = i = 0;
-    piping = 0;
     in = NULL;
     cd = pipebuf;
     start_x = 2;
@@ -482,9 +481,6 @@ do_command(int fanout, char *username)
 	     * passing signals to children.
 	     */
 	    (void)setsid();
-	    if (piping)
-		if (close(STDIN_FILENO) != 0)
-		    bailout();
 	    if (dup2(nodeptr->out.fds[1], STDOUT_FILENO) 
 		!= STDOUT_FILENO) 
 		bailout();
