@@ -104,14 +104,17 @@ read_from_client(int filedes, char **j)
     nbytes = read(filedes, buffer, MAXMSG);
     if (nbytes < 0)
 	log_bailout();
-    else if (nbytes == 0)
+    else if (nbytes == 0) {
 	/* End-of-file. */
+	free(buffer);
 	return(-1);
-    else { /* Data read. */
+    } else { /* Data read. */
 	/* place data from the socket into the buffer we were passed */
 	*j = strdup(buffer);
+	free(buffer);
 	return(nbytes);
     }
     /*NOTREACHED*/
+    free(buffer);
     return(0);
 }
