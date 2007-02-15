@@ -208,7 +208,9 @@ main(int argc, char **argv)
 void do_copy(char **argv, int recurse, int preserve, char *username)
 {
     int numsource, j, nrofargs;
+    size_t len, rem;
     char *source_file, *destination_file, *tempstore, **rcp, *rcpstring;
+    char **argvp;
     node_t *nodeptr;
 
     if (debug) {
@@ -227,21 +229,29 @@ void do_copy(char **argv, int recurse, int preserve, char *username)
 	(void)fprintf(stderr, "Must specify at least one file to copy\n");
 	exit(EXIT_FAILURE);
     }
+    argvp = argv;
+    len = strlen(*argvp) + 2;
+    while (*++argvp != NULL) {
+	    len += 1; /* space */
+	    len += strlen(*argvp);
+    }
+    printf("len == %d\n", len);
+    source_file = calloc(len, sizeof(char));
+    rem = len;
+
     tempstore = NULL;
-    source_file = strdup(*argv);
+    strncpy(source_file, *argv, rem);
+    rem -= strlen(*argv);
     numsource = 1;
     while (*++argv != NULL) {
 	numsource++;
 	if (tempstore != NULL) {
-	    source_file = realloc(source_file,
-		((strlen(source_file)+2+strlen(tempstore)) *
-		    sizeof(char)));
-	    if (source_file == NULL)
-		bailout();
-	    source_file = strcat(source_file, " ");
-	    source_file = strdup(strcat(source_file, tempstore));
+	    (void)strncat(source_file, " ", rem);
+	    rem -= 1;
+	    (void)strncat(source_file, tempstore, rem);
+	    rem -= strlen(tempstore);
 	}
-	tempstore = strdup(*argv);
+	tempstore = *argv;
     }
     if (numsource == 1)
 	destination_file = strdup(source_file);
@@ -267,6 +277,8 @@ void do_copy(char **argv, int recurse, int preserve, char *username)
 		source_file, destination_file);
     else
 	    serial_copy(rcpstring, username, source_file, destination_file);
+    free(source_file);
+    free(destination_file);
 }
 
 /* Copy files in paralell.  This is preferred with smaller files, because
