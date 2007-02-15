@@ -262,6 +262,7 @@ void do_copy(char **argv, int recurse, int preserve, char *username)
 	printf("\nDo Copy: %s %s\n", source_file, destination_file);
 
     rcp = parse_rcmd("RCP_CMD", "RCP_CMD_ARGS", &nrofargs);
+    j = nrofargs;
     rcpstring = build_rshstring(rcp, nrofargs);
     if (recurse) {
 	    strcat(rcpstring, " -r ");
@@ -279,6 +280,9 @@ void do_copy(char **argv, int recurse, int preserve, char *username)
 	    serial_copy(rcpstring, username, source_file, destination_file);
     free(source_file);
     free(destination_file);
+    for (nrofargs=0; nrofargs < j; nrofargs++)
+	    free(rcp[nrofargs]);
+    free(rcp);
 }
 
 /* Copy files in paralell.  This is preferred with smaller files, because

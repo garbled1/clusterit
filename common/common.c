@@ -594,7 +594,7 @@ parse_rcmd(char *rcmd_env, char *args_env, int *nrofargs)
 		*nrofargs = j+a;
 	} else {
 		cmd = malloc(sizeof(char *) * (j+1+a));
-		cmd[0] = default_rcmd(rcmd_env);
+		cmd[0] = strdup(default_rcmd(rcmd_env));
 		cmd[1] = (char *)0;
 		i = 1;
 		*nrofargs = j+a;
