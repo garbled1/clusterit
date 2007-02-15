@@ -198,36 +198,39 @@ static void
 test_and_set(void)
 {
     int i;
-    char *p, *seqfile;
-    char buf[MAXBUF];
+    char fbuf[MAXBUF], buf[MAXBUF];
+    char *seqfile;
     FILE *sd;
     node_t *nodeptr, *nodex;
 
-    p = buf;
     i = 0;
 
     seqfile = getenv("SEQ_FILE");
     if (seqfile == NULL) {
-	(void)snprintf(buf, MAXBUF, "/tmp/%d.%s", (int)getppid(), progname);
-	seqfile = strdup(buf);
+	(void)snprintf(fbuf, MAXBUF, "/tmp/%d.%s", (int)getppid(),
+	    progname);
+	seqfile = fbuf;
     }
+
     sd = fopen(seqfile, "r");
     if (sd == NULL)
 	sd = fopen(seqfile, "w");
     else {
-	fscanf(sd, "%s", p);
-	seqnumber = atoi(p);
+	fscanf(sd, "%s", buf);
+	seqnumber = atoi(buf);
 	fclose(sd);
 	sd = fopen(seqfile, "w");
     }
     if (sd == NULL)
 	bailout();
+
     nodeptr = check_seq();
     for (nodex = nodelink; nodex != nodeptr; nodex = nodex->next)
 	i++;
-    (void)fprintf(sd, "%d", i);
-    fclose(sd);
+
     seqnumber = i;
+    (void)fprintf(sd, "%d\n", seqnumber);
+    fclose(sd);
 }
 
 /* return the node number of the next node in the seqence. */
@@ -235,19 +238,19 @@ test_and_set(void)
 node_t *
 check_seq(void)
 {
-    int i, g;
+    int i;
     node_t *nodeptr;
 
     if (seqnumber == -1)
 	return(nodelink);
 
-    g = seqnumber;
     i = 0;
-    for (nodeptr = nodelink; (nodeptr && i < g);
+    for (nodeptr = nodelink; (nodeptr && i < seqnumber);
 	 nodeptr = nodeptr->next)
 	i++;
     if (nodeptr == NULL || nodeptr->next == NULL)
 	return(nodelink);
+    printf("returning %s\n", nodeptr->name);
     return(nodeptr->next);
 }
 
