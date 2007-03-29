@@ -234,6 +234,8 @@ free_node(char *nodename)
     if (debug)
 	printf("Freeing node %s\n", nodename);
     read_from_client(sock, &buf);
+    /* we just ignore the contents, so free it */
+    free(buf);
     if (write_to_client(sock, nodename) != 0)
 	bailout();
     if (debug)

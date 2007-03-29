@@ -93,6 +93,8 @@ write_to_client(int filedes, const char *buf)
 	return(EXIT_SUCCESS);
 }
 
+/* Caller must free returned buffer when done */
+
 int
 read_from_client(int filedes, char **j)
 {
