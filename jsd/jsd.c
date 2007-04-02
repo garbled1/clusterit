@@ -507,6 +507,10 @@ do_bench_command(char *argv, int fanout, char *username)
 	    nodeptr = nodeptr->next;
 	} /* for i */			
     } /* for n */
+    free(rshstring);
+    for (i=0; rsh[i] != NULL; i++)
+	    free(rsh[i]);
+    free(rsh);
 }
 
 /*ARGSUSED*/
