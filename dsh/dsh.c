@@ -507,6 +507,7 @@ do_command(char **argv, int fanout, char *username)
 	fclose(in);
     } else
 	    free(command);
+    free(rshstring);
 }
 
 void

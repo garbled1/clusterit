@@ -413,4 +413,5 @@ do_command(char **argv, int allrun, char *username)
 	fclose(in);
     } else
 	    free(command);
+    free(rshstring);
 }

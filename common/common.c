@@ -517,7 +517,9 @@ get_rshport(int testflag, int rshport, char *rcmd_env)
 	return(port);
 }
 
-/* Convenience:  Build the rshstring */
+/* Convenience:  Build the rshstring.
+ * Caller must free return value.
+ */
 char *
 build_rshstring(char **rsh, int nrofargs)
 {
