@@ -458,7 +458,8 @@ paralell_copy(char *rcp, int nrof, char *username, char *source_file,
 	    (void)wait(&status);
 	    nodeptr = nodeptr->next;
 	} /* pipe read */
-    } /* for n */	
+    } /* for n */
+    free(argz);
 }
 
 /* serial copy */
