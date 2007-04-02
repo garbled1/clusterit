@@ -505,4 +505,5 @@ serial_copy(char *rcp, char *username, char *source_file,
 			printf("Running command: %s\n", command);
 		system(command);
 	}
+	free(command);
 }
