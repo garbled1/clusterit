@@ -299,6 +299,7 @@ do_command(char **argv, int allrun, char *username)
 	    /* are we a terminal?  then go interactive! */
 	    (void)printf("%s>", progname);
 	in = fdopen(STDIN_FILENO, "r");
+	free(command);
 	command = fgets(cbuf, sizeof(cbuf), in);
 	/* start reading stuff from stdin and process */
 	if (command != NULL)
@@ -446,5 +447,6 @@ do_command(char **argv, int allrun, char *username)
 	/* I learned this the hard way */
 	fflush(in);
 	fclose(in);
-    }
+    } else
+	    free(command);
 }

@@ -263,6 +263,7 @@ do_command(char **argv, int allrun, char *username)
 	in = fdopen(STDIN_FILENO, "r");
 
 	/* start reading stuff from stdin and process */
+	free(command);
 	command = fgets(cbuf, sizeof(cbuf), in);
 	if (command != NULL)
 	    if (strcmp(command,"\n") == 0)
@@ -410,5 +411,6 @@ do_command(char **argv, int allrun, char *username)
     if (piping) {  /* I learned this the hard way */
 	fflush(in);
 	fclose(in);
-    }
+    } else
+	    free(command);
 }
