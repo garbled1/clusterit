@@ -363,6 +363,7 @@ void free_node(int sock)
 		syslog(LOG_DEBUG, "freeing node %s", nodeptr->name);
 	}
     close(new);
+    free(buf);
 }
 
 /*
