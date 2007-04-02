@@ -455,6 +455,9 @@ do_command(char **argv, int allrun, char *username)
     } else
 	    free(command);
     free(rshstring);
+    for (i=0; rsh[i] != NULL; i++)
+	    free(rsh[i]);
+    free(rsh);
 }
 
 void

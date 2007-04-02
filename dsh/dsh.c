@@ -315,7 +315,7 @@ do_command(char **argv, int fanout, char *username)
 	    for (i=0; (i < fanout && nodeptr != NULL); i++) {
 		g++;
 		if (gotsigterm)
-		    exit(EXIT_FAILURE);
+			exit(EXIT_FAILURE);
 		if (debug)
 		    (void)printf("Working node: %d, fangroup %d,"
 			" fanout part: %d\n", g, n, i);
@@ -508,6 +508,9 @@ do_command(char **argv, int fanout, char *username)
     } else
 	    free(command);
     free(rshstring);
+    for (i=0; rsh[i] != NULL; i++)
+	    free(rsh[i]);
+    free(rsh);
 }
 
 void
