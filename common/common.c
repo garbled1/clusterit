@@ -536,6 +536,7 @@ build_rshstring(char **rsh, int nrofargs)
 		if (rsh[i] != NULL)
 			sprintf(rshstring, "%s %s", rshstring, rsh[i]);
 	}
+
 	return(rshstring);
 }
 
@@ -569,17 +570,20 @@ parse_rcmd(char *rcmd_env, char *args_env, int *nrofargs)
 
 	tmp = getenv(args_env);
 	p = tmp;
-	a = 0;
+	a = 1;
+	j = 3;
+	
 	if (tmp != NULL) {
 		while (*p != '\0') {
 			if (isspace((unsigned char)*p))
-				j++;
+				a++;
 			p++;
 		}
-	}
+	} else
+		a = 0;
+
 	tmp = getenv(rcmd_env);
 	p = tmp;
-	j = 3;
 	if (tmp != NULL) {
 		while (*p != '\0') {
 			if (isspace((unsigned char)*p))
@@ -599,6 +603,7 @@ parse_rcmd(char *rcmd_env, char *args_env, int *nrofargs)
 		i = 1;
 		*nrofargs = j+a;
 	}
+
 	tmp = getenv(args_env);
 	while (tmp != NULL)
 		cmd[i++] = strdup(strsep(&tmp, " "));
