@@ -401,8 +401,10 @@ do_bench_command(char *argv, int fanout, char *username)
 	}
 	j++;
     }
-    if (debug)
+    if (debug) {
 	syslog(LOG_DEBUG, "%s", q);
+	free(q);
+    }
 
     i = j; /* side effect of above */
     j = i / fanout;
