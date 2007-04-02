@@ -235,7 +235,7 @@ void do_copy(char **argv, int recurse, int preserve, char *username)
 	    len += 1; /* space */
 	    len += strlen(*argvp);
     }
-    printf("len == %d\n", len);
+
     source_file = calloc(len, sizeof(char));
     rem = len;
 
@@ -460,6 +460,7 @@ paralell_copy(char *rcp, int nrof, char *username, char *source_file,
 	} /* pipe read */
     } /* for n */
     free(argz);
+    free(rcpstring);
 }
 
 /* serial copy */
