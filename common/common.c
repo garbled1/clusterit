@@ -562,6 +562,7 @@ default_rcmd(char *rcmd_env)
 
 /* This routine parses the RCMD_CMD and RCMD_CMD_ARGS environment variables
  * and tries to set things up properly for them.
+ * The contents of the returned cmd must be freed by the caller.
  */
 
 char **
