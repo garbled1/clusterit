@@ -89,6 +89,7 @@
 
 #include <signal.h>
 #include <assert.h>
+#include <inttypes.h>
 #include <errno.h>
 #include <fcntl.h>
 #include <grp.h>
@@ -255,9 +256,9 @@ humanize_number(char *buf, size_t len, int64_t bytes,
 	int64_t	divisor, max;
 	size_t	baselen;
 
-	_DIAGASSERT(buf != NULL);
-	_DIAGASSERT(suffix != NULL);
-	_DIAGASSERT(scale >= 0);
+	assert(buf != NULL);
+	assert(suffix != NULL);
+	assert(scale >= 0);
 
 	if (flags & HN_DIVISOR_1000) {
 		/* SI for decimal multiplies */
