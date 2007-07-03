@@ -213,8 +213,11 @@ main(int argc, char *argv[])
 	bailout();
     if (limit.rlim_cur < fanout * 5) {
 	limit.rlim_cur = fanout * 5;
-	if (setrlimit(RLIMIT_NOFILE, &limit) != 0)
+	if (setrlimit(RLIMIT_NOFILE, &limit) != 0) {
+	    fprintf(stderr, "setrlimit failed, increase max open files"
+	        " as root, or lower fanout setting.\n");
 	    bailout();
+	}
     }
 
     do_command(argv, fanout, username);
