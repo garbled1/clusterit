@@ -368,7 +368,12 @@ do_command(char **argv, int allrun, char *username)
 	    if ((fds[0].revents&POLLIN) == POLLIN ||
 		(fds[0].revents&POLLHUP) == POLLHUP ||
 		(fds[0].revents&POLLPRI) == POLLPRI) {
+#ifdef __linux__
+		cd = fgets(pipebuf, sizeof(pipebuf), fda);
+		if (cd != NULL) {
+#else
 		while ((cd = fgets(pipebuf, sizeof(pipebuf), fda))) {
+#endif
 		    (void)printf("%*s: %s", -maxnodelen,
 			nodeptr->name, cd);
 		    gotdata++;
@@ -377,7 +382,12 @@ do_command(char **argv, int allrun, char *username)
 	    if ((fds[1].revents&POLLIN) == POLLIN ||
 		(fds[1].revents&POLLHUP) == POLLHUP ||
 		(fds[1].revents&POLLPRI) == POLLPRI) {
+#ifdef __linux__
+		cd = fgets(pipebuf, sizeof(pipebuf), fd);
+		if (cd != NULL) {
+#else
 		while ((cd = fgets(pipebuf, sizeof(pipebuf), fd))) {
+#endif
 		    if (errorflag) 
 			(void)printf("%*s: %s", -maxnodelen,
 			    nodeptr->name, cd);

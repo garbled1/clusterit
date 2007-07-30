@@ -351,7 +351,7 @@ do_command(char **argv, int fanout, char *username)
 		     * passing signals to children.
 		     */
 		    (void)setsid();
-#ifndef linux
+#ifndef __linux__
 		    /* Linux needs stdin open so it gets poll() hangup events*/
 		    if (piping)
 			if (close(STDIN_FILENO) != 0)
@@ -450,28 +450,39 @@ do_command(char **argv, int fanout, char *username)
 		    bailout();
 		fds[0].fd = nodeptr->out.fds[0];
 		fds[1].fd = nodeptr->err.fds[0];
-		fds[0].events = POLLIN|POLLPRI;
-		fds[1].events = POLLIN|POLLPRI;
+		fds[0].events = POLLIN|POLLPRI|POLLHUP;
+		fds[1].events = POLLIN|POLLPRI|POLLHUP;
 		pollret = 1;
 
 		while (pollret >= 0) {
 		    int gotdata;
+		    size_t foo;
 
 		    pollret = poll(fds, 2, 5);
 		    gotdata = 0;
 		    if ((fds[0].revents&POLLIN) == POLLIN ||
 			(fds[0].revents&POLLHUP) == POLLHUP ||
 		        (fds[0].revents&POLLPRI) == POLLPRI) {
+#ifdef __linux__
+			cd = fgets(pipebuf, sizeof(pipebuf), fda);
+			if (cd != NULL) {
+#else
 			while ((cd = fgets(pipebuf, sizeof(pipebuf), fda))) {
+#endif
 			    (void)printf("%*s: %s", -maxnodelen,
 				nodeptr->name, cd);
 			    gotdata++;
 			}
 		    }
 		    if ((fds[1].revents&POLLIN) == POLLIN ||
-			(fds[0].revents&POLLHUP) == POLLHUP ||
+			(fds[1].revents&POLLHUP) == POLLHUP ||
 			(fds[1].revents&POLLPRI) == POLLPRI) {
+#ifdef __linux__
+			cd = fgets(pipebuf, sizeof(pipebuf), fd);
+			if (cd != NULL) {
+#else
 			while ((cd = fgets(pipebuf, sizeof(pipebuf), fd))) {
+#endif
 			    if (errorflag) 
 				(void)printf("%*s: %s", -maxnodelen,
 				    nodeptr->name, cd);

@@ -432,6 +432,9 @@ test_node_connection(int rshport, int timeout, node_t *nodeptr)
     struct hostent *hostinfo;
     struct itimerval timer;
     struct sigaction signaler;
+#ifdef __linux__
+    struct sigaction old;
+#endif
     
     /* test if the port exists and is serviceable */
     sock = socket(PF_INET, SOCK_STREAM, 0);
@@ -456,6 +459,12 @@ test_node_connection(int rshport, int timeout, node_t *nodeptr)
     signaler.sa_handler = alarm_handler;
     signaler.sa_flags = SA_RESTART;
     sigaction(SIGALRM, &signaler, NULL);
+#ifdef __linux__
+    sigaction(SIGALRM, NULL, &old);
+    memcpy(&signaler, &old, sizeof(struct sigaction));
+    signaler.sa_flags &= ~SA_RESTART;
+    sigaction(SIGALRM, &signaler, &old);
+#endif
     setitimer(ITIMER_REAL, &timer, NULL);
     if (connect(sock, (struct sockaddr *)&name,	sizeof(name)) != 0) {
 	if (alarmtime)

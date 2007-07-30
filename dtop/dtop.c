@@ -1161,18 +1161,26 @@ do_command(int fanout, char *username)
 		    if ((fds[0].revents&POLLIN) == POLLIN ||
 			(fds[0].revents&POLLHUP) == POLLHUP ||
 		        (fds[0].revents&POLLPRI) == POLLPRI) {
+#ifdef __linux__
+			cd = fgets(pipebuf, sizeof(pipebuf), fda);
+			if (cd != NULL) {
+#else
 			while ((cd = fgets(pipebuf, sizeof(pipebuf), fda))) {
+#endif
 				pid += parse_top(cd, nodeptr,
 				    n*fanout + i, pid);
-				/*(void)printf("%*s: %s", -maxnodelen,
-				  nodeptr->name, cd);*/
 			    gotdata++;
 			}
 		    }
 		    if ((fds[1].revents&POLLIN) == POLLIN ||
-			(fds[0].revents&POLLHUP) == POLLHUP ||
+			(fds[1].revents&POLLHUP) == POLLHUP ||
 			(fds[1].revents&POLLPRI) == POLLPRI) {
+#ifdef __linux__
+			cd = fgets(pipebuf, sizeof(pipebuf), fd);
+			if (cd != NULL) {
+#else
 			while ((cd = fgets(pipebuf, sizeof(pipebuf), fd))) {
+#endif
 			    gotdata++;
 			}
 		    }

@@ -35,8 +35,10 @@
 #include <poll.h>
 #include <libgen.h>
 #include <signal.h>
+#include <unistd.h>
 #include <sys/time.h>
 #include <sys/types.h>
+#include <sys/stat.h>
 #include <sys/resource.h>
 #include <sys/wait.h>
 #include "../common/common.h"
@@ -445,7 +447,12 @@ paralell_copy(char *rcp, int nrof, char *username, char *source_file,
 		if ((fds[0].revents&POLLIN) == POLLIN ||
 		    (fds[0].revents&POLLHUP) == POLLHUP ||
 		    (fds[0].revents&POLLPRI) == POLLPRI) {
+#ifdef __linux__
+		    cd = fgets(pipebuf, sizeof(pipebuf), fda);
+		    if (cd != NULL) {
+#else
 		    while ((cd = fgets(pipebuf, sizeof(pipebuf), fda))) {
+#endif
 			if (!quiet)
 			    (void)printf("%*s: %s", -maxnodelen,
 				nodeptr->name, cd);
@@ -455,7 +462,12 @@ paralell_copy(char *rcp, int nrof, char *username, char *source_file,
 		if ((fds[1].revents&POLLIN) == POLLIN ||
 		    (fds[1].revents&POLLHUP) == POLLHUP ||
 		    (fds[1].revents&POLLPRI) == POLLPRI) {
+#ifdef __linux__
+		    cd = fgets(pipebuf, sizeof(pipebuf), fd);
+		    if (cd != NULL) {
+#else
 		    while ((cd = fgets(pipebuf, sizeof(pipebuf), fd))) {
+#endif
 			if (!quiet)
 				(void)printf("%*s: %s", -maxnodelen,
 				    nodeptr->name, cd);
