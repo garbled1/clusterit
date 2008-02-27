@@ -1105,7 +1105,7 @@ do_command(int fanout, char *username)
 		    if (testflag && rshport > 0 && porttimeout > 0)
 			if (!test_node_connection(rshport, porttimeout,
 						  nodeptr))
-			    exit(EXIT_SUCCESS);
+			    _exit(EXIT_SUCCESS);
 		    cmd = calloc(nrofargs+1, sizeof(char *));
 		    arg = 0;
 		    while (rsh[arg] != NULL) {

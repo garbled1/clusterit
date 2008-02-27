@@ -384,7 +384,7 @@ do_command(char **argv, int fanout, char *username)
 		    if (testflag && rshport > 0 && porttimeout > 0)
 			if (!test_node_connection(rshport, porttimeout,
 						  nodeptr))
-			    exit(EXIT_SUCCESS);
+			    _exit(EXIT_SUCCESS);
 		    /* handle the script argument */
 		    if (script) {
 			    scriptbase = basename(scriptname);

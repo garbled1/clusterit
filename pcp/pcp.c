@@ -408,7 +408,7 @@ paralell_copy(char *rcp, int nrof, char *username, char *source_file,
 		if (testflag && rshport > 0 && porttimeout > 0)
 			if (!test_node_connection(rshport, porttimeout,
 						  nodeptr))
-			    exit(EXIT_SUCCESS);
+			    _exit(EXIT_SUCCESS);
 		for (aps = argz; (*aps = strsep(&rcpstring, " ")) != NULL;)
 		    if (**aps != '\0')
 			++aps;
