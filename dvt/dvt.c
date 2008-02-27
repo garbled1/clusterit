@@ -595,6 +595,8 @@ do_command(int fanout, char *username)
 	    } else if (report.xbutton.window == sbup) {
 		report.xbutton.state = Mod5Mask; /* add the mod5 mask */
 		report.xbutton.button = Button3; /* set the button */
+		report.xbutton.y = 150;
+		report.type = ButtonRelease;
 		for (nodeptr = nodehold; nodeptr != NULL;
 		     nodeptr = nodeptr->next) {
 		    if (nodeptr->win_id != 0)
@@ -604,6 +606,8 @@ do_command(int fanout, char *username)
 	    } else if (report.xbutton.window == sbdown) {
 		report.xbutton.state = Mod5Mask; /* add the mod5 mask */
 		report.xbutton.button = Button1; /* set the button */
+		report.xbutton.y = 150;
+		report.type = ButtonRelease;
 		for (nodeptr = nodehold; nodeptr != NULL;
 		     nodeptr = nodeptr->next) {
 		    if (nodeptr->win_id != 0)
