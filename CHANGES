@@ -1,5 +1,7 @@
 $Id$
 
+* Release 2.5 *
+
 Add -b option to pcp.  This adds the ability to reverse the operation of pcp
 and use it to gather files from remote machines, rather than push to them.
 
