@@ -300,8 +300,11 @@ void do_copy(char **argv, int recurse, int preserve, char *username)
 	    serial_copy(rcpstring, username, source_file, destination_file);
     free(source_file);
     free(destination_file);
-    for (nrofargs=0; nrofargs < j; nrofargs++)
+    for (nrofargs=0; nrofargs < j-2; nrofargs++) {
+	    if (rcp[nrofargs] == NULL)
+		break;
 	    free(rcp[nrofargs]);
+	}
     free(rcp);
 }
 
